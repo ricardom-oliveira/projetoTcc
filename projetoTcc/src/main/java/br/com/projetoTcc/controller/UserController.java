@@ -47,14 +47,29 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping("/all-users")
+    public String home2 (Model model) {
+    	User user = new User();
+    	model.addAttribute("allUsers", userService.findAll());
+    	logger.info("all-users");
+        return "all-users";
+    }
+
     @RequestMapping("/home")
     public String home(Model model) {
+       
+        logger.info("home");
+        return "home";
+    }
+    
+    @RequestMapping("/task")
+    public String task(Model model) {
         Task task =new Task();
         model.addAttribute("reqTask", task);
         model.addAttribute("allTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.ACTIVE.getValue()));
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
-        logger.info("home");
-        return "home";
+        logger.info("task");
+        return "task";
     }
 
     @RequestMapping("/admin")

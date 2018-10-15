@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8"/>
+    <meta name="description" content="spring-boot thymeleaf | home ">
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+    <div class="tab-pane" id="trashTab">
+        <div class="container">
+            <div class="content-container clearfix">
+                <div class="col-md-12">
+                    <h1 class="content-title">Todos os usuários</h1>
+                    <input type="search" placeholder="Search Task" class="form-control mail-search"/>
+
+                    <div class="panel panel-info">
+
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-responsive">
+                                <thead>
+                                <tr class="btn-info">
+                                	<th>id</th>
+                                    <th>username</th>
+                                    <th>role</th>
+                                    <th>profissão</th>
+                                    <th>email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                            
+                                <tr th:each="user : ${allUsers}">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td th:text="${user.role}"></td>
+                                    <td th:text="${user.occupation}"></td>
+                                    <td th:text="${user.email}"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<footer>
+    <div class="separator" th:replace="fragments/footer :: footer">&copy;</div>
+</footer>
+
+</body>
+</html>

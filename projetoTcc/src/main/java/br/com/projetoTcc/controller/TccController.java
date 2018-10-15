@@ -45,7 +45,7 @@ public class TccController {
             logger.error("save: " + e.getMessage());
         }
 
-        return "redirect:/home";
+        return "redirect:/task";
     }
 
     @RequestMapping(value = {"/task/editTask"}, method = RequestMethod.POST)
@@ -113,7 +113,7 @@ public class TccController {
                 redirectAttributes.addFlashAttribute("msg", "notfound");
             }
         }
-        return "redirect:/home";
+        return "redirect:/task";
     }
 
 
