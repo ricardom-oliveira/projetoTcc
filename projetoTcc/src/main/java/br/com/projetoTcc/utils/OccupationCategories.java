@@ -1,11 +1,11 @@
 package br.com.projetoTcc.utils;
 
 public enum OccupationCategories {
-	COSTUREIRA("COSTUREIRA"),
-	MOTORISTA("MOTORISTA"),
-    PROGRAMADOR_JAVA("PROGRAMADOR JAVA"),
-    MARCENEIRO("MARCENEIRO"),
-    COZINHEIRO("COZINHEIRO");
+	costureiro("costureiro"),
+	motorista("motorista"),
+    programador("programador"),
+    marceneiro("marceneiro"),
+    cozinheiro("cozinheiro");
 	private String value;
 
 	OccupationCategories(String value) {
