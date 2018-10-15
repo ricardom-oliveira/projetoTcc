@@ -1,6 +1,12 @@
 package br.com.projetoTcc.model;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.projetoTcc.utils.OccupationCategories;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -28,7 +34,16 @@ public class User {
 
     @Column(name = "role")
     private int role;
-
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "occupation", nullable = true)
+    private OccupationCategories occupation;
+    
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "birth_date", nullable = true)
+    private LocalDate birthDate;
+    
+    
     public User() {
     }
 
@@ -107,4 +122,22 @@ public class User {
 
         return Objects.hash(id, username, password, password_2, email, role);
     }
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public OccupationCategories getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(OccupationCategories occupation) {
+		this.occupation = occupation;
+	}
+	
+	
 }
