@@ -1,14 +1,14 @@
 package br.com.projetoTcc.model;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.projetoTcc.utils.OccupationCategories;
-
-import java.time.LocalDate;
-import java.util.Objects;
-
+import br.com.projetoTcc.utils.Gender;
 
 @Entity
 @Table(name = "user", schema = "tccdb")
@@ -19,7 +19,7 @@ public class User {
     @Column(name = "id", unique = true)
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, length = 30)
     private String username;
 
     @Column(name = "password")
@@ -29,7 +29,7 @@ public class User {
     @Column(name = "password_2")
     private String password_2;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "role")
@@ -40,9 +40,19 @@ public class User {
     private OccupationCategories occupation;
     
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "birth_date", nullable = true)
+    @Column(name = "birth_date")
     private LocalDate birthDate;
     
+    @Column(name = "name")
+    private String name;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
     
     public User() {
     }
@@ -114,7 +124,10 @@ public class User {
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(password_2, user.password_2) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email)&&
+        		Objects.equals(address, user.address)&&
+        		Objects.equals(name, user.name)&&
+        		Objects.equals(gender, user.gender);
     }
 
     @Override
@@ -138,6 +151,32 @@ public class User {
 	public void setOccupation(OccupationCategories occupation) {
 		this.occupation = occupation;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
 	
 	
 }

@@ -49,7 +49,7 @@ public class TccController {
     }
 
     @RequestMapping(value = {"/task/editTask"}, method = RequestMethod.POST)
-    public String editTcc(@ModelAttribute("editTask") Task editTask, Model model) {
+    public String editTask(@ModelAttribute("editTask") Task editTask, Model model) {
         logger.info("/task/editTask");
         try {
             Task task = taskService.findById(editTask.getId());
@@ -69,7 +69,7 @@ public class TccController {
 
 
     @RequestMapping(value = "/task/{operation}/{id}", method = RequestMethod.GET)
-    public String tccOperation(@PathVariable("operation") String operation,
+    public String taskOperation(@PathVariable("operation") String operation,
                                 @PathVariable("id") int id, final RedirectAttributes redirectAttributes,
                                 Model model) {
 
