@@ -69,21 +69,7 @@
 
 								</div>
 							</div>
-
-							<div class="form-group ">
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-user"></i>
-									</div>
-									<select th:field="*{occupation}" class="select form-control" id="select" name="select">
-										<option value=""> Escolha sua especialidade
-								</option>
-										<option th:each="value : ${T(br.com.projetoTcc.utils.OccupationCategories).values()}"
-											th:value="${value}" th:text="${value}">
-								</option>
-									</select>
-								</div>
-							</div>
+ 
 
 							<label class="control-label " for="select"> Data de Nascimento</label>
 							<div class="form-group ">

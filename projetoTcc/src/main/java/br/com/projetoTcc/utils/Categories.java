@@ -1,14 +1,13 @@
 package br.com.projetoTcc.utils;
 
-public enum OccupationCategories {
-	costureiro("costureiro"),
-	motorista("motorista"),
-    programador("programador"),
-    marceneiro("marceneiro"),
-    cozinheiro("cozinheiro");
+public enum Categories {
+	Roupas("Roupas"),
+	Automóveis("Automóveis"),
+	Computação("Computação"),
+    Cozinha("Cozinha");
 	private String value;
 
-	OccupationCategories(String value) {
+	Categories(String value) {
         this.value = value;
     }
 

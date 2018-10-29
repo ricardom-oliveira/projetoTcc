@@ -1,13 +1,27 @@
 package br.com.projetoTcc.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.projetoTcc.utils.OccupationCategories;
 import br.com.projetoTcc.utils.Gender;
 
 @Entity
@@ -33,12 +47,8 @@ public class User {
     private String email;
 
     @Column(name = "role")
-    private int role;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "occupation", nullable = true)
-    private OccupationCategories occupation;
-    
+    private int role;    
+   
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "birth_date")
     private LocalDate birthDate;
@@ -54,7 +64,11 @@ public class User {
     @JoinColumn(name = "address_id")
     private Address address;
     
-    public User() {
+    @OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Competence> competences;
+
+
+	public User() {
     }
 
     public User(String username, String password, String email, int role) {
@@ -64,6 +78,62 @@ public class User {
         this.setRole(role);
 
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                role == user.role &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(password_2, user.password_2) &&
+                Objects.equals(email, user.email)&&
+        		Objects.equals(address, user.address)&&
+        		Objects.equals(name, user.name)&&
+        		Objects.equals(gender, user.gender);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, username, password, password_2, email, role);
+    }
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
 
     public int getId() {
         return id;
@@ -113,69 +183,20 @@ public class User {
         this.role = role;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                role == user.role &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(password_2, user.password_2) &&
-                Objects.equals(email, user.email)&&
-        		Objects.equals(address, user.address)&&
-        		Objects.equals(name, user.name)&&
-        		Objects.equals(gender, user.gender);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, username, password, password_2, email, role);
-    }
-
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public List<Competence> getCompetence() {
+		if (competences == null) {
+			competences = new ArrayList<Competence>();
+		};
+		
+		
+		return competences;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setCompetence(List<Competence> competence) {
+		this.competences = competence;
 	}
 
-	public OccupationCategories getOccupation() {
-		return occupation;
-	}
-
-	public void setOccupation(OccupationCategories occupation) {
-		this.occupation = occupation;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    
 	
 	
 	

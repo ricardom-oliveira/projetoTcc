@@ -1,10 +1,8 @@
 package br.com.projetoTcc.service;
 
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
 
 import br.com.projetoTcc.model.Task;
-
-import java.util.List;
 
 
 public interface TaskService {
