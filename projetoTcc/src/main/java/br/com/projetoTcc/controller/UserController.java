@@ -1,7 +1,5 @@
 package br.com.projetoTcc.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,12 +78,6 @@ public class UserController {
         model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
         logger.info("task");
         return "task";
-    }
-
-    @RequestMapping("/admin")
-    public String helloAdmin() {
-        logger.info("admin");
-        return "admin";
     }
     
     @RequestMapping("/register")
@@ -180,14 +172,14 @@ public class UserController {
     }
     
 
-    @RequestMapping("/perfil")
+    @RequestMapping("/perfil2")
     public String perfil(Model model) {
     	User user = userService.findById((globalController.getLoginUser().getId()));
         model.addAttribute("user", user);
         model.addAttribute("allCompetences", competenceService.findByUser(user));
         model.addAttribute("newCompetence", new Competence());
-        logger.info("perfil");
-        return "perfil";
+        logger.info("perfil2");
+        return "perfil2";
     }
     
     @RequestMapping(value = {"/user/perfil/save"}, method = RequestMethod.POST)
@@ -260,6 +252,68 @@ public class UserController {
         }
         model.addAttribute("userPerfil", userService.findById(globalController.getLoginUser().getId()));
         return "perfil";
+    }
+    
+    
+    @RequestMapping("/perfil")
+    public String perfil2(Model model) {
+    	User user = userService.findById((globalController.getLoginUser().getId()));
+        model.addAttribute("user", user);
+        model.addAttribute("age", user.getAge());
+        model.addAttribute("allCompetences", competenceService.findByUser(user));
+        model.addAttribute("newCompetence", new Competence());
+        logger.info("perfil");
+        return "perfil";
+    }
+    
+
+
+    @RequestMapping("/admin")
+    public String helloAdmin(Model model) {
+
+    	model.addAttribute("allUsers", userService.findAll());
+        logger.info("admin");
+        return "admin";
+    }
+    
+    @RequestMapping(value = {"/admin/delete/{id}"},  method = RequestMethod.GET)
+    public String deleteUserByAdmin (@PathVariable("id") int id,    		
+    													Model model,
+    													final RedirectAttributes redirectAttributes) {
+        logger.info("/admin/delete/{id}" + id);
+        try {
+            if (userService.delete(id)) {            	
+            	redirectAttributes.addFlashAttribute("msg", "successDelete");
+            	redirectAttributes.addFlashAttribute("allUsers", userService.findAll());
+            	return "redirect:/admin";
+            }	         
+            
+          
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("deleteUserByAdmin: " + e.getMessage());
+        }
+        return "admin";
+    }
+    
+
+    
+    @RequestMapping(value = {"/user/delete/{id}"},  method = RequestMethod.GET)
+    public String deleteUser (@PathVariable("id") int id,    		
+    													Model model,
+    													final RedirectAttributes redirectAttributes) {
+        logger.info("/user/delete/{id}" + id);
+        try {
+            if (userService.delete(id)) {
+            	return "redirect:/home";
+            }	         
+            
+          
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("deleteUserByAdmin: " + e.getMessage());
+        }
+        return "home";
     }
     
 }

@@ -1,6 +1,7 @@
 package br.com.projetoTcc.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -196,6 +197,15 @@ public class User {
 		this.competences = competence;
 	}
 
+	public int getAge() {
+		LocalDate today = LocalDate.now();                          //Today's date
+		LocalDate birthday = this.birthDate;  //Birth date
+		
+
+		Period p = Period.between(birthday, today);
+		
+		return p.getYears();
+	}
     
 	
 	

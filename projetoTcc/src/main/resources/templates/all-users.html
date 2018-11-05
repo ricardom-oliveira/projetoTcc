@@ -26,8 +26,10 @@
                                 	<th>id</th>
                                     <th>username</th>
                                     <th>role</th>
-                                    <th>profissão</th>
+                                    <th>genero</th>
+                                    <th>Data Nascimento</th>
                                     <th>email</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -36,7 +38,8 @@
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.role}"></td>
-                                    <td th:text="${user.occupation}"></td>
+                                    <td th:text="${user.gender}"></td>
+                                    <td th:text="${user.birthDate}"></td>
                                     <td th:text="${user.email}"></td>
                                 </tr>
 

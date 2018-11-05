@@ -3,6 +3,10 @@
 <head>
 <title>Edit</title>
 <div th:replace="fragments/header :: header-css" />
+
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+
+<link rel="stylesheet" type="text/css" href="css/edit.css" />
 </head>
 <body>
 	<div th:replace="fragments/header :: header" />
@@ -11,135 +15,163 @@
 		<div class="tab-pane active" id="compose">
 			<div class="container">
 				<div class="content-container clearfix">
-					<div class="row">
-						<div class="container">
-							<h1 class="content-title">Editar Cadastro</h1>
-							<div th:if="${msg eq 'success'}"
-								class="alert alert-success alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">&times;</button>
-								<strong>Success </strong> Cadastro Editado com sucesso
-							</div>
-							<div th:if="${msg eq 'same'}"
-								class="alert alert-warning alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">&times;</button>
-								<strong>Atenção </strong> Nenhum campo mudou :(
-							</div>
-							<div th:if="${msg eq 'exist-email'}"
-								class="alert alert-warning alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">&times;</button>
-								<strong>Atenção </strong> Email ja existente :(
-							</div>
-							<div th:if="${msg eq 'fail'}"
-								class="alert alert-danger alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert"
-									aria-hidden="true">&times;</button>
-								<strong>Falhou </strong> Não foi possível atualizar seu cadastro
-							</div>
 
-							<form th:object="${editUser}" th:action="@{/user/editUser}"
-								method="post" class="form-horizontal">
-								<input type="hidden" th:field="*{id}" th:value="*{id}" /> <input
-									type="hidden" th:field="*{username}" th:value="*{username}" />
-								<input type="hidden" th:field="*{role}" th:value="*{role}" /> <label
-									class="control-label " for="select"> Dados Pessoais </label>
-
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-user"></i>
-										</div>
-										<input th:field="*{name}" type="text" name="register_name"
-											class="form-control" placeholder="nome" required="required"
-											value="" />
-									</div>
-								</div>
-
-
-
-								<label class="control-label " for="select"> Data de
-									Nascimento</label>
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input th:field="*{birthDate}" class="form-control"
-											type="text" placeholder="dd/mm/aaaa">
-									</div>
-								</div>
-
-								<label class="control-label " for="select"> Endereco</label>
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="glyphicon glyphicon-home"></i>
-										</div>
-										<input th:field="*{address.street}" type="text"
-											name="register_username" class="form-control"
-											placeholder="Rua" required="required" /> <input
-											th:field="*{address.number}" type="text"
-											name="register_username" class="form-control"
-											placeholder="Número" required="required" />
-									</div>
-								</div>
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="glyphicon glyphicon-home"></i>
-										</div>
-										<input th:field="*{address.district}" type="text"
-											name="register_email" class="form-control"
-											placeholder="Bairro" required="required" value="" />
-									</div>
-								</div>
-
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="glyphicon glyphicon-home"></i>
-										</div>
-										<input th:field="*{address.city}" type="text"
-											name="register_email" class="form-control"
-											placeholder="Cidade" required="required" />
-									</div>
-								</div>
-
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="glyphicon glyphicon-home"></i>
-										</div>
-										<input th:field="*{address.street}" type="text"
-											name="register_email" class="form-control" placeholder="País"
-											required="required" value="" />
-									</div>
-								</div>
-
-
-								<label class="control-label " for="select"> Dados da
-									conta</label>
-
-
-								<div class="form-group ">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-envelope"></i>
-										</div>
-										<input th:field="*{email}" type="email" name="register_email"
-											class="form-control" placeholder="Email" required="required" />
-									</div>
-								</div>
-								
-
-								<input type="submit" value="Editar Cadastro"
-									class="btn btn-success btn-custom" />
-
-							</form>
-						</div>
+					<h1 class="content-title">Editar Cadastro</h1>
+					<div th:if="${msg eq 'success'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Success </strong> Cadastro Editado com sucesso
 					</div>
+					<div th:if="${msg eq 'same'}"
+						class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Atenção </strong> Nenhum campo mudou :(
+					</div>
+					<div th:if="${msg eq 'exist-email'}"
+						class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Atenção </strong> Email ja existente :(
+					</div>
+					<div th:if="${msg eq 'fail'}"
+						class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Falhou </strong> Não foi possível atualizar seu cadastro
+					</div>
+
+					<form th:object="${editUser}" th:action="@{/user/editUser}"
+						method="post" class="form-horizontal">
+						<input type="hidden" th:field="*{id}" th:value="*{id}" /> <input
+							type="hidden" th:field="*{username}" th:value="*{username}" /> <input
+							type="hidden" th:field="*{role}" th:value="*{role}" />
+							 <label type="hidden" th:field="*{gender}" th:value="*{gender}" /> <label
+							class="control-label " for="select"> Dados Pessoais </label>
+
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-user"></i>
+								</div>
+								<input th:field="*{name}" type="text" name="register_name"
+									class="form-control" placeholder="nome" required="required"
+									value="" />
+							</div>
+						</div>
+
+
+
+						<label class="control-label " for="select"> Data de
+							Nascimento</label>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input th:field="*{birthDate}" class="form-control" type="text"
+									placeholder="dd/mm/aaaa">
+							</div>
+						</div>
+
+						<label class="control-label " for="select"> Endereco</label>
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-home"></i>
+								</div>
+								<input th:field="*{address.street}" type="text"
+									name="register_username" class="form-control" placeholder="Rua"
+									required="required" /> <input th:field="*{address.number}"
+									type="text" name="register_username" class="form-control"
+									placeholder="Número" required="required" />
+							</div>
+						</div>
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-home"></i>
+								</div>
+								<input th:field="*{address.district}" type="text"
+									name="register_email" class="form-control" placeholder="Bairro"
+									required="required" value="" />
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-home"></i>
+								</div>
+								<input th:field="*{address.city}" type="text"
+									name="register_email" class="form-control" placeholder="Cidade"
+									required="required" />
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-home"></i>
+								</div>
+								<input th:field="*{address.street}" type="text"
+									name="register_email" class="form-control" placeholder="País"
+									required="required" value="" />
+							</div>
+						</div>
+
+
+						<label class="control-label " for="select"> Dados da conta</label>
+
+
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-envelope"></i>
+								</div>
+								<input th:field="*{email}" type="email" name="register_email"
+									class="form-control" placeholder="Email" required="required" />
+							</div>
+						</div>
+
+
+						<input type="submit" value="Editar Cadastro"
+							class="btn btn-success btn-custom" />
+
+					</form>
+
+
+
+					<a data-toggle="modal" class="btn btn-danger navbar-right"	data-target="#modal-delete"	th:attr="data-target='#modal-delete'+${editUser.id}">excluir											
+											</a>
+
+					<div class="modal modal-delete" th:id="modal-delete+${editUser.id}">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">Ã—</button>
+									<h3 id="delModalLabel">Delete Confirmation</h3>
+								</div>
+								<div class="modal-body">
+									<p class="error-text">
+										<strong>Deseja excluir esta conta permanentemente?</strong>
+									</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn " data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/user/delete/{id}(id=${editUser.id})}"> <span
+										class="btn btn-danger" value="delete">Excluir</span>
+									</a>
+
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!--end delete modal-->
 				</div>
 			</div>
 		</div>
@@ -171,6 +203,24 @@
 	    }
 	    password.onchange = validatePassword;
 	    confirm_password.onkeyup = validatePassword;
+	</script>
+	
+		<script>
+	    $('#modal-toTrash').on('show.bs.modal', function (e) {
+	        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+	        $('#modal-toTrashHiddenId').val($(this).find('.btn-ok').attr('href'));
+	    });	
+	    $('#modal-delete').on('show.bs.modal', function (e) {
+	       							 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+	       		 $('#modal-deleteHiddenId').val($(this).find('.btn-ok').attr('href'));
+	  											  });
+	
+	</script>
+
+	<script>
+		$('#myModal').on('shown.bs.modal', function () {
+									    	$('#myInput').trigger('focus')
+	   										})
 	</script>
 </body>
 </html>

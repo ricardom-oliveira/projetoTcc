@@ -1,12 +1,158 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Admin</title>
-    </head>
-    <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]! (admin)</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+<title>Admin</title>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="compose">
+			<div class="container">
+				<div class="content-container clearfix">
+						<h1 class="content-title">Lista De Usuários</h1>
+						<div class="row">
+							<div class="col-md-12">
+								<!--star operations messages-->
+								<div th:if="${msg eq 'successSave'}"
+									class="alert alert-success alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">&times;</button>
+									<strong> Categoria de serviço salva com sucesso </strong>
+								</div>
+								<div th:if="${msg eq 'successDelete'}"
+									class="alert alert-success alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">&times;</button>
+									<strong> Usuário deletado com sucesso</strong>
+								</div>
+								<div th:if="${msg eq 'fail'}"
+									class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">&times;</button>
+									<strong>Erro inesperado, tente de novo mais tarde!</strong>
+								</div>
+								<div th:if="${msg eq 'descriptionError'}"
+									class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">&times;</button>
+									<strong>Descrição faltando </strong>
+								</div>
+								<div th:if="${msg eq 'categorieError'}"
+									class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true">&times;</button>
+									<strong>Categoria faltando</strong>
+								</div>
+								<!--end of messages-->
+
+
+
+
+
+							</div>
+
+
+
+							
+
+
+							<!--  Tabela de usuários -->
+							<h1 class="content-title">Todos os Usuários</h1>
+							<div class="panel panel-info">
+								<div class="panel-body">
+									<table
+										class="table table-bordered table-striped table-responsive">
+										<thead>
+											<tr class="btn-info">
+												<th>id</th>
+												<th>Nome</th>
+												<th>Data Nascimento</th>
+												<th>genero</th>
+												<th>email</th>
+												<th>role</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="user : ${allUsers}">
+												<td th:text="${user.id}"></td>
+												<td th:text="${user.name}"></td>
+												<td th:text="${user.birthDate}"></td>
+												<td th:text="${user.gender}"></td>
+												<td th:text="${user.email}"></td>
+												<td th:text="${user.role}"></td>
+												<td th:hidden="${user.id}"></td>
+												<td align="center">&nbsp; &nbsp; <a data-toggle="modal"
+													data-target="#modal-delete"
+													th:attr="data-target='#modal-delete'+${user.id}">
+														<span class="glyphicon glyphicon-trash"
+														data-toggle="tooltip" data-placement="top"
+														title="Delete Permanently"> </span>
+												</a></td>
+												<!--modal para deletar serviços -->
+												<div class="modal modal-delete"
+													th:id="modal-delete+${user.id}">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-hidden="true">Ã—</button>
+																<h3 id="delModalLabel">Delete Confirmation</h3>
+															</div>
+															<div class="modal-body">
+																<p class="error-text">
+																	<strong>Deseja remover este serviço?</strong>
+																</p>
+															</div>
+															<div class="modal-footer">
+																<button class="btn " data-dismiss="modal"
+																	aria-hidden="true">Cancelar</button>
+																<a
+																	th:href="@{/admin/delete/{id}(id=${user.id})}">
+																	<span class="btn btn-danger" value="delete">Remover</span>
+																</a>
+
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div>
+												<!--end delete modal-->
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	    $('#modal-toTrash').on('show.bs.modal', function (e) {
+	        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+	        $('#modal-toTrashHiddenId').val($(this).find('.btn-ok').attr('href'));
+	    });	
+	    $('#modal-delete').on('show.bs.modal', function (e) {
+	       							 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+	       		 $('#modal-deleteHiddenId').val($(this).find('.btn-ok').attr('href'));
+	  											  });
+	
+	</script>
+
+	<script>
+		$('#myModal').on('shown.bs.modal', function () {
+									    	$('#myInput').trigger('focus')
+	   										})
+	</script>
+</body>
 </html>
