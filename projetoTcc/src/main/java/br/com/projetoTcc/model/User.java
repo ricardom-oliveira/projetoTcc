@@ -24,84 +24,84 @@ import javax.persistence.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.projetoTcc.utils.Gender;
+import br.com.projetoTcc.utils.Status;
 
 @Entity
 @Table(name = "user", schema = "tccdb")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true)
+	private int id;
 
-    @Column(name = "username", unique = true, length = 30)
-    private String username;
+	@Column(name = "username", unique = true, length = 30)
+	private String username;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "password")
+	private String password;
 
-    @Transient
-    @Column(name = "password_2")
-    private String password_2;
+	@Transient
+	@Column(name = "password_2")
+	private String password_2;
 
-    @Column(name = "email", unique = true)
-    private String email;
+	@Column(name = "email", unique = true)
+	private String email;
 
-    @Column(name = "role")
-    private int role;    
-   
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
-    
-    @Column(name = "name")
-    private String name;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private Gender gender;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
-    
-    @OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Competence> competences;
+	@Column(name = "role")
+	private int role;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "birth_date")
+	private LocalDate birthDate;
+
+	@Column(name = "name")
+	private String name;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender")
+	private Gender gender;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
+
+	@OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Competence> competences;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private Status status;
 
 	public User() {
-    }
+	}
 
-    public User(String username, String password, String email, int role) {
-        this.setUsername(username);
-        this.setPassword(password);
-        this.setEmail(email);
-        this.setRole(role);
+	public User(String username, String password, String email, int role) {
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setEmail(email);
+		this.setRole(role);
 
-    }
+	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		User user = (User) o;
+		return id == user.id && role == user.role && Objects.equals(username, user.username)
+				&& Objects.equals(password, user.password) && Objects.equals(password_2, user.password_2)
+				&& Objects.equals(email, user.email) && Objects.equals(address, user.address)
+				&& Objects.equals(name, user.name) && Objects.equals(gender, user.gender);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                role == user.role &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(password_2, user.password_2) &&
-                Objects.equals(email, user.email)&&
-        		Objects.equals(address, user.address)&&
-        		Objects.equals(name, user.name)&&
-        		Objects.equals(gender, user.gender);
-    }
+	@Override
+	public int hashCode() {
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, username, password, password_2, email, role);
-    }
+		return Objects.hash(id, username, password, password_2, email, role);
+	}
 
 	public LocalDate getBirthDate() {
 		return birthDate;
@@ -134,62 +134,61 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getPassword_2() {
-        return password_2;
-    }
+	public String getPassword_2() {
+		return password_2;
+	}
 
-    public void setPassword_2(String password_2) {
-        this.password_2 = password_2;
-    }
+	public void setPassword_2(String password_2) {
+		this.password_2 = password_2;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public int getRole() {
-        return role;
-    }
+	public int getRole() {
+		return role;
+	}
 
-    public void setRole(int role) {
-        this.role = role;
-    }
+	public void setRole(int role) {
+		this.role = role;
+	}
 
 	public List<Competence> getCompetence() {
 		if (competences == null) {
 			competences = new ArrayList<Competence>();
-		};
-		
-		
+		}
+		;
+
 		return competences;
 	}
 
@@ -198,16 +197,22 @@ public class User {
 	}
 
 	public int getAge() {
-		LocalDate today = LocalDate.now();                          //Today's date
-		LocalDate birthday = this.birthDate;  //Birth date
-		
+		LocalDate today = LocalDate.now(); // Today's date
+		LocalDate birthday = this.birthDate; // Birth date
 
 		Period p = Period.between(birthday, today);
-		
+
 		return p.getYears();
 	}
-    
-	
-	
-	
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+
+
 }

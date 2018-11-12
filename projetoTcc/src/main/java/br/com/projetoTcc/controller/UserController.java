@@ -113,7 +113,9 @@ public class UserController {
 
         reqUser.setPassword(PassEncoding.getInstance().passwordEncoder.encode(reqUser.getPassword()));
         reqUser.setRole(Roles.ROLE_USER.getValue());
-        
+       
+        //todo email para confirmação
+        reqUser.setStatus(Status.ACTIVE);
         if (userService.save(reqUser) != null) {
             redirectAttributes.addFlashAttribute("saveUser", "success");
         } else {
@@ -297,6 +299,29 @@ public class UserController {
     }
     
 
+    @RequestMapping(value = {"/admin/banishment/{id}"},  method = RequestMethod.GET)
+    public String banishmentUserByAdmin (@PathVariable("id") int id,    		
+    													Model model,
+    													final RedirectAttributes redirectAttributes) {
+        logger.info("/admin/delete/{id}" + id);
+        try {
+        	
+        	User user = userService.findById(id);
+        	
+        	user.setStatus(Status.PASSIVE);
+        	
+	    	redirectAttributes.addFlashAttribute("msg", "successBanishment");
+	    	redirectAttributes.addFlashAttribute("allUsers", userService.findAll());
+	    	return "redirect:/admin";
+            	         
+            
+          
+        } catch (Exception e) {
+            model.addAttribute("msg", "fail");
+            logger.error("deleteUserByAdmin: " + e.getMessage());
+        }
+        return "admin";
+    }
     
     @RequestMapping(value = {"/user/delete/{id}"},  method = RequestMethod.GET)
     public String deleteUser (@PathVariable("id") int id,    		
