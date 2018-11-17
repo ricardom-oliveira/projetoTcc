@@ -15,10 +15,13 @@ public class Match {
 	@Column(name = "id", unique = true)
 	private int id;
 
-	@Column(name = "user_request", unique = true, length = 30)
+	
+	@ManyToOne
+	@JoinColumn(name="user_request_id", nullable=false)
 	private User userRequest;
-
-	@Column(name = "user_receiver")
+	
+	@ManyToOne
+	@JoinColumn(name="user_receiver_id", nullable=false)
 	private User userReceiver;
 	
 	@Column(name = "match_status")

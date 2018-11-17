@@ -68,6 +68,12 @@ public class User {
 
 	@OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Competence> competences;
+	
+	@OneToMany(mappedBy = "userRequest", targetEntity = Match.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Match> matchsRequest;
+	
+	@OneToMany(mappedBy = "userReceiver", targetEntity = Match.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Match> matchsReceiver;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
