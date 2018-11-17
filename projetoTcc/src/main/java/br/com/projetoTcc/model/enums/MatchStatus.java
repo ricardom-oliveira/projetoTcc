@@ -1,13 +1,11 @@
-package br.com.projetoTcc.utils;
+package br.com.projetoTcc.model.enums;
 
-public enum Categories {
-	Roupas("Roupas"),
-	Automóveis("Automóveis"),
-	Computação("Computação"),
-    Cozinha("Cozinha");
+public enum MatchStatus {
+	WAITING("WAITING"), ACCEPTED("ACCEPTED"), REJECTED("REJECTED");
+    
 	private String value;
 
-	Categories(String value) {
+	MatchStatus(String value) {
         this.value = value;
     }
 

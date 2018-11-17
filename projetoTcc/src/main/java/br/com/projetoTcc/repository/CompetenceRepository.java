@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.User;
-import br.com.projetoTcc.utils.Categories;
+import br.com.projetoTcc.model.enums.Categories;
 
 public interface CompetenceRepository extends CrudRepository<Competence, Integer> {
 

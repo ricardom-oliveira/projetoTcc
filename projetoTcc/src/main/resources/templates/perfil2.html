@@ -89,7 +89,7 @@
 												id="select" name="select">
 												<option value="null">Categoria</option>
 												<option
-													th:each="value : ${T(br.com.projetoTcc.utils.Categories).values()}"
+													th:each="value : ${T(br.com.projetoTcc.model.enums.Categories).values()}"
 													th:value="${value}" th:text="${value}">
 														</option>
 											</select>

@@ -63,8 +63,9 @@
 									</div>
 									<select th:field="*{gender}" class="select form-control" id="select" name="select">
 										<option value="null">Genero</option>
-										<option th:each="value : ${T(br.com.projetoTcc.utils.Gender).values()}" th:value="${value}"
-											th:text="${value}">
+										<option
+											th:each="value : ${T(br.com.projetoTcc.model.enums.Gender).values()}"
+											th:value="${value}" th:text="${value}">
 									</option>
 									</select>
 

@@ -2,7 +2,7 @@ package br.com.projetoTcc.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.projetoTcc.utils.TaskCategories;
+import br.com.projetoTcc.model.enums.TaskCategories;
 
 import javax.persistence.*;
 import java.time.LocalDate;

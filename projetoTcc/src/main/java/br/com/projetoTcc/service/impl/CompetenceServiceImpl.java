@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.User;
+import br.com.projetoTcc.model.enums.Categories;
 import br.com.projetoTcc.repository.CompetenceRepository;
 import br.com.projetoTcc.service.CompetenceService;
-import br.com.projetoTcc.utils.Categories;
 
 @Service
 @Transactional

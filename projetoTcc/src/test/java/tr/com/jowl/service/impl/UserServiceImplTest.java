@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.projetoTcc.model.User;
+import br.com.projetoTcc.model.enums.Roles;
 import br.com.projetoTcc.service.UserService;
 import br.com.projetoTcc.utils.PassEncoding;
-import br.com.projetoTcc.utils.Roles;
 
 import java.util.ArrayList;
 import java.util.List;

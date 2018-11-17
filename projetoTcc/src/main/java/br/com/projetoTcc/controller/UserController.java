@@ -14,12 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.Task;
 import br.com.projetoTcc.model.User;
+import br.com.projetoTcc.model.enums.Roles;
+import br.com.projetoTcc.model.enums.Status;
 import br.com.projetoTcc.service.CompetenceService;
 import br.com.projetoTcc.service.TaskService;
 import br.com.projetoTcc.service.UserService;
 import br.com.projetoTcc.utils.PassEncoding;
-import br.com.projetoTcc.utils.Roles;
-import br.com.projetoTcc.utils.Status;
 
 
 @Controller

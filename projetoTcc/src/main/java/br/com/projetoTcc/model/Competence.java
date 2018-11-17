@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.projetoTcc.utils.Categories;
+import br.com.projetoTcc.model.enums.Categories;
 
 @Entity
 @Table(name = "competence", schema = "tccdb")

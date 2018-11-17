@@ -23,8 +23,8 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.projetoTcc.utils.Gender;
-import br.com.projetoTcc.utils.Status;
+import br.com.projetoTcc.model.enums.Gender;
+import br.com.projetoTcc.model.enums.Status;
 
 @Entity
 @Table(name = "user", schema = "tccdb")
@@ -72,6 +72,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private Status status;
+	
+	
 
 	public User() {
 	}

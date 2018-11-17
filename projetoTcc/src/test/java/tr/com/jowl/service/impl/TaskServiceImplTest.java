@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.projetoTcc.model.Task;
+import br.com.projetoTcc.model.enums.Status;
 import br.com.projetoTcc.service.TaskService;
-import br.com.projetoTcc.utils.Status;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.projetoTcc.model.Task;
+import br.com.projetoTcc.model.enums.Status;
 import br.com.projetoTcc.service.TaskService;
-import br.com.projetoTcc.utils.Status;
 
 import java.time.LocalDateTime;
 

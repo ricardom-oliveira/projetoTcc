@@ -1,4 +1,4 @@
-package br.com.projetoTcc.utils;
+package br.com.projetoTcc.model.enums;
 
 
 public enum Status {
