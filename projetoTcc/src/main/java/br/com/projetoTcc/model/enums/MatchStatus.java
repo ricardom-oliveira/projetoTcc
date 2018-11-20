@@ -1,7 +1,7 @@
 package br.com.projetoTcc.model.enums;
 
 public enum MatchStatus {
-	WAITING("WAITING"), ACCEPTED("ACCEPTED"), REJECTED("REJECTED");
+	WAITING("WAITING"), ACCEPTED("ACCEPTED"), IGNORED("IGNORED");
     
 	private String value;
 

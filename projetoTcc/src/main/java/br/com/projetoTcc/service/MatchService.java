@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import br.com.projetoTcc.model.Match;
-import br.com.projetoTcc.model.Task;
 import br.com.projetoTcc.model.User;
 
 
@@ -27,5 +26,7 @@ public interface MatchService {
 	
 	Boolean delete(int id);
 
-
+	Collection<User> findUsersOkToMatch(User userLogin);
+	
+	Match checkIfMatchExists(User userMatch, User userLogin);
 }

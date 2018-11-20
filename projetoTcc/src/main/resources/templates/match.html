@@ -16,17 +16,47 @@
 		<div class="tab-pane active" id="compose">
 			<div class="container col-md-12">
 				<div class="content-container clearfix">
+
+					<div th:if="${isEmpty}">
+						<blockquote class="blockquote text-center">
+							<h1>Você já olhou todos os usuários, volte mais tarde</h1>
+						</blockquote>
+					</div>
 					<div th:if="${msg eq 'acceptedMatch'}"
 						class="alert alert-success alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						<strong> Parabéns, vc formou um match com: </strong><p th:text="${userMatch.name}"></p>
+						<strong> Parabéns, vc formou um match com: </strong>
+						<p th:text="${userMatch.name}"></p>
 					</div>
 					<div th:if="${msg eq 'waitingMatch'}"
 						class="alert alert-success alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						<strong> Vamos aguardar a resposta do(a)</strong><p th:text="${userMatch.name}"></p>
+						<strong> Vamos aguardar a resposta do(a)</strong>
+						<p th:text="${userMatch.name}"></p>
+					</div>
+					<div th:if="${msg eq 'waitingMatch'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Vamos aguardar a resposta do(a)</strong>
+						<p th:text="${userMatch.name}"></p>
+					</div>
+					<div th:if="${msg eq 'ignoredMatch'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Você ignorou o(a)</strong>
+						<p th:text="${userMatch.name}"></p>
+					</div>
+					<div th:if="${msg eq 'rejectedMatch'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Infelizmente nenhum serviço seu é o desejado
+							pelo(a)</strong>
+						<p th:text="${userMatch.name}"></p>
 					</div>
 					<div class="row">
 						<div class="col-md-4" th:each="user : ${allUsers}">
@@ -48,7 +78,7 @@
 									<p>
 										<a th:href="@{/match/request/{id}(id=${user.id})}"><span
 											class="btn btn-primary">Solicitar Serviço</span></a> <a
-											th:href="@{/match/reject/{id}(id=${user.id})}"><span
+											th:href="@{/match/ignore/{id}(id=${user.id})}"><span
 											class="btn btn-warning">ignorar</span></a>
 									</p>
 								</div>

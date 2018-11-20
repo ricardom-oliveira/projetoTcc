@@ -41,12 +41,15 @@ public class MatchController {
 	    
 	    @RequestMapping("/match")
 	    public String match(Model model) {
+
 	    	
-	    	Collection<User> userOkToMatch = findUsersOkToMatch();
+	    	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+        	if(userList.isEmpty())
+        		model.addAttribute("isEmpty", true);
+        	else
+        		model.addAttribute("allUsers", userList);
 	    	
 	    	
-	    	
-	    	model.addAttribute("allUsers", userOkToMatch);
 	    	
 	    	
 	    	
@@ -55,39 +58,6 @@ public class MatchController {
 	    }
 
 
-		private Collection<User> findUsersOkToMatch() {
-			
-			Collection<User> allUsers = userService.findAllByRole(Roles.ROLE_USER.getValue());
-	    	User userLogin = globalController.getLoginUser();	
-			
-	    	List<Match> matchsUserLogin = matchService.findByUserRequestAndMatchStatus(userLogin, MatchStatus.WAITING.getValue());
-          
-	    	Collection<User> userOkToMatch = new ArrayList<User>();
-	    		for (User user : allUsers) {
-					boolean isEquals = false;
-					if (!matchsUserLogin.isEmpty() || matchsUserLogin == null) {
-		    			for (Match match : matchsUserLogin) {
-							if(!isEquals){
-								if ((user.getId() == match.getUserReceiver().getId())  || (userLogin.getId() == user.getId())){
-									isEquals = true;
-								}								
-							}							
-						}
-		    			if ((!isEquals)) {
-							userOkToMatch.add(user);								
-						}
-					}else {
-						if (userLogin.getId() != user.getId()) {
-							userOkToMatch.add(user);	
-						}
-					}
-					
-				}
-				return userOkToMatch;
-	    	
-	    	
-		}
-	    
 	    
 	    @RequestMapping(value = {"/match/request/{id}"},  method = RequestMethod.GET)
 	    public String requestMatch(@PathVariable("id") int id,    		
@@ -98,15 +68,33 @@ public class MatchController {
 	        	User userMatch = userService.findById(id);
 	            User userLogin = globalController.getLoginUser();
 	        	
-	            //falta refatorar
-	            Match match = checkIfMatchExists(userMatch, userLogin);	
+	            Match match = matchService.checkIfMatchExists(userMatch, userLogin);	
         		
         		if (match != null) {
-        			match.setMatchStatus(MatchStatus.ACCEPTED.getValue());        	    	
-                	redirectAttributes.addFlashAttribute("msg", "acceptedMatch"); 	    	
-                	redirectAttributes.addFlashAttribute("userMatch", userMatch);
-                	redirectAttributes.addFlashAttribute("allUsers", findUsersOkToMatch());
-                	return "redirect:/match";        			
+        			if (match.getMatchStatus().equals(MatchStatus.WAITING.getValue())) {
+        				match.setMatchStatus(MatchStatus.ACCEPTED.getValue());        	    	
+                    	redirectAttributes.addFlashAttribute("msg", "acceptedMatch"); 	    	
+                    	redirectAttributes.addFlashAttribute("userMatch", userMatch);
+                    	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                    	if(userList.isEmpty())
+                    		redirectAttributes.addFlashAttribute("isEmpty", true);
+                    	else
+                    		redirectAttributes.addFlashAttribute("allUsers", userList);        
+                    	return "redirect:/match"; 
+        			}
+        			
+        			if (match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) { 	    	
+                    	redirectAttributes.addFlashAttribute("msg", "rejectMatch"); 	    	
+                    	redirectAttributes.addFlashAttribute("userMatch", userMatch);
+                    	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                    	if(userList.isEmpty())
+                    		redirectAttributes.addFlashAttribute("isEmpty", true);
+                    	else
+                    		redirectAttributes.addFlashAttribute("allUsers", userList);       
+                    	return "redirect:/match"; 
+        			}
+        			
+        			       			
         		}
         		
         		Match newMatch = new Match(userLogin, userMatch);
@@ -114,7 +102,11 @@ public class MatchController {
         			newMatch.setMatchStatus(MatchStatus.WAITING.getValue());        	    	
                 	redirectAttributes.addFlashAttribute("msg", "waitingMatch"); 	    	
                 	redirectAttributes.addFlashAttribute("userMatch", userMatch);
-                	redirectAttributes.addFlashAttribute("allUsers", findUsersOkToMatch());
+                	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                	if(userList.isEmpty())
+                		redirectAttributes.addFlashAttribute("isEmpty", true);
+                	else
+                		redirectAttributes.addFlashAttribute("allUsers", userList);
                 	return "redirect:/match";
         		}
         		
@@ -124,25 +116,83 @@ public class MatchController {
 	            model.addAttribute("msg", "fail");
 	            logger.error("requestMatch: " + e.getMessage());
 	        }
-	        model.addAttribute("allUsers", findUsersOkToMatch());
+	        Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+        	if(userList.isEmpty())
+        		redirectAttributes.addFlashAttribute("isEmpty", true);
+        	else
+        		redirectAttributes.addFlashAttribute("allUsers", userList);
 	        return "match";         	            
 	          
 	        }
 
 
-		private Match checkIfMatchExists(User userMatch, User userLogin) {
-			List<Match> matchsUserLogin = matchService.findByUserReceiverAndMatchStatus(userLogin, MatchStatus.WAITING.getValue());
-			
-			if (matchsUserLogin != null) {
-				for (Match match : matchsUserLogin) {
-					if(match.getUserRequest().getId() == userMatch.getId()) {
-						return match;
-					}
-				}
-			}
-			return null;
-		
-	    }
-	    
+	    @RequestMapping(value = {"/match/ignore/{id}"},  method = RequestMethod.GET)
+	    public String ignoreMatch(@PathVariable("id") int id,    		
+														Model model,
+														final RedirectAttributes redirectAttributes) {
+	        logger.info("/match/ignore/" + id);
+	        try {
+	        	User userMatch = userService.findById(id);
+	            User userLogin = globalController.getLoginUser();
+	        	
+	            Match match = matchService.checkIfMatchExists(userMatch, userLogin);	
+        		
+        		if (match != null) {
+        			if (match.getMatchStatus().equals(MatchStatus.WAITING.getValue())) {
+        				match.setMatchStatus(MatchStatus.IGNORED.getValue());        	    	
+                    	redirectAttributes.addFlashAttribute("msg", "ignoredMatch"); 	    	
+                    	redirectAttributes.addFlashAttribute("userMatch", userMatch);
+                    	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                    	if(userList.isEmpty())
+                    		redirectAttributes.addFlashAttribute("isEmpty", true);
+                    	else
+                    		redirectAttributes.addFlashAttribute("allUsers", userList);
+                    	
+                    	return "redirect:/match"; 
+        			}
+        			
+        			if (match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) {
+        				match.setMatchStatus(MatchStatus.IGNORED.getValue());        	    	
+                    	redirectAttributes.addFlashAttribute("msg", "ignoredMatch"); 	    	
+                    	redirectAttributes.addFlashAttribute("userMatch", userMatch);
+                    	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                    	if(userList.isEmpty())
+                    		redirectAttributes.addFlashAttribute("isEmpty", true);
+                    	else
+                    		redirectAttributes.addFlashAttribute("allUsers", userList);        
+                    	return "redirect:/match"; 
+        			}
+        			    			
+        		}
+        		
+        		Match newMatch = new Match(userLogin, userMatch);
+        		if (matchService.save(newMatch) != null) {
+        			newMatch.setMatchStatus(MatchStatus.IGNORED.getValue());        	    	
+                	redirectAttributes.addFlashAttribute("msg", "ignoredMatch"); 	    	
+                	redirectAttributes.addFlashAttribute("userMatch", userMatch);
+                	Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+                	if(userList.isEmpty())
+                		redirectAttributes.addFlashAttribute("isEmpty", true);
+                	else
+                		redirectAttributes.addFlashAttribute("allUsers", userList);
+                	return "redirect:/match";
+        		}
+        		
+	       
+	        
+	        } catch (Exception e) {
+	            model.addAttribute("msg", "fail");
+	            logger.error("requestMatch: " + e.getMessage());
+	        }
+	        Collection<User> userList = matchService.findUsersOkToMatch(globalController.getLoginUser());
+        	if(userList.isEmpty())
+        		redirectAttributes.addFlashAttribute("isEmpty", true);
+        	else
+        		redirectAttributes.addFlashAttribute("allUsers", userList);
+	        return "match";         	            
+	          
+	        }
+	
+	   
 	    
 }
