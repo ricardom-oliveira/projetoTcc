@@ -1,13 +1,18 @@
 package br.com.projetoTcc.model;
 
-import java.util.Objects;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.com.projetoTcc.model.enums.MatchStatus;
 
 @Entity
-@Table(name = "match", schema = "tccdb")
+@Table(name = "matchs", schema = "tccdb")
 public class Match {
 
 	@Id
@@ -17,16 +22,18 @@ public class Match {
 
 	
 	@ManyToOne
-	@JoinColumn(name="user_request_id", nullable=false)
+	@JoinColumn(name="id_user_request", nullable=false)
 	private User userRequest;
 	
 	@ManyToOne
-	@JoinColumn(name="user_receiver_id", nullable=false)
+	@JoinColumn(name="id_user_receiver", nullable=false)
 	private User userReceiver;
 	
 	@Column(name = "match_status")
 	private String matchStatus;
 	
+	public Match() {
+	}
 
 	public Match (User userRequest, User userReceiver) {
 		this.userRequest = userRequest;

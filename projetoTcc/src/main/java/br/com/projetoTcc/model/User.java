@@ -192,16 +192,16 @@ public class User {
 	}
 
 	public List<Competence> getCompetence() {
-		if (competences == null) {
-			competences = new ArrayList<Competence>();
+		if (getCompetences() == null) {
+			setCompetences(new ArrayList<Competence>());
 		}
 		;
 
-		return competences;
+		return getCompetences();
 	}
 
 	public void setCompetence(List<Competence> competence) {
-		this.competences = competence;
+		this.setCompetences(competence);
 	}
 
 	public int getAge() {
@@ -219,6 +219,38 @@ public class User {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public List<Competence> getCompetences() {
+		if (this.competences == null) {
+			setCompetences(new ArrayList<Competence>());
+		}
+		
+		return this.competences;
+	}
+
+	public void setCompetences(List<Competence> competences) {
+		this.competences = competences;
+	}
+
+	public List<Match> getMatchsRequest() {
+		if (this.matchsRequest == null) {
+			setMatchsRequest(new ArrayList<Match>());
+		}
+		
+		return this.matchsRequest;
+	}
+
+	public void setMatchsRequest(List<Match> matchsRequest) {
+		this.matchsRequest = matchsRequest;
+	}
+
+	public List<Match> getMatchsReceiver() {
+		return matchsReceiver;
+	}
+
+	public void setMatchsReceiver(List<Match> matchsReceiver) {
+		this.matchsReceiver = matchsReceiver;
 	}
 
 

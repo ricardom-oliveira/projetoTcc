@@ -57,4 +57,10 @@ public class UserServiceImpl implements UserService {
         Iterable<User> itr = userRepository.findAll();
         return (Collection<User>) itr;
     }
+    
+    @Override
+    public Collection<User> findAllByRole(int role){
+    	Iterable<User> itr = userRepository.findAllByRole(role);
+        return (Collection<User>) itr;
+    }
 }

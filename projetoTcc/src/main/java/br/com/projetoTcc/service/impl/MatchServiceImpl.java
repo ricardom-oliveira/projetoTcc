@@ -61,5 +61,19 @@ public class MatchServiceImpl implements MatchService {
 		return findAll();
 	}
 
+	@Override
+	public Match save(Match match) {
+		return matchRepository.save(match);
+	}
+
+	@Override
+    public Boolean delete(int id) {
+        if (matchRepository.existsById(id)) {
+        	matchRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
    
 }

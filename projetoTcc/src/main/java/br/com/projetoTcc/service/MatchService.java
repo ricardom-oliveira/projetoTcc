@@ -9,6 +9,8 @@ import br.com.projetoTcc.model.User;
 
 
 public interface MatchService {
+	Match save (Match match);
+	
 	Match findById(int id);
 	
 	List<Match> findByUserReceiver(User userReceiver);
@@ -22,6 +24,8 @@ public interface MatchService {
 	List<Match> findByUserReceiverAndMatchStatus(User userReceiver, String status);
 	
 	Collection<Match> findAll();
+	
+	Boolean delete(int id);
 
 
 }

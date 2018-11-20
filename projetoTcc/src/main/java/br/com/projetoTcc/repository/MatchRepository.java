@@ -2,19 +2,22 @@ package br.com.projetoTcc.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import br.com.projetoTcc.model.Match;
 import br.com.projetoTcc.model.User;
 
 public interface MatchRepository extends CrudRepository<Match, Integer> {
-
+		
 	Match findById(int id);
 
 	
 	List<Match> findByUserReceiver(User userReceiver);
 	
-	List<Match> findByUserRequest(User userRequest);
+	@Query("from Match m where m.userRequest = :user")
+	List<Match> findByUserRequest(@Param("user") User user);
 	
 	List<Match> findByMatchStatus(String status);
 
@@ -22,6 +25,6 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 	
 	List<Match> findByUserReceiverAndMatchStatus(User userReceiver, String status);
 
-	//@Query("from Match m where m.id = id and m.user_receiver = userReceiver")
+	//
 	//List<Match> findMatchsByUserReceiver(@Param("id") int id, @Param("userReceiver") User userReceiver);
 }

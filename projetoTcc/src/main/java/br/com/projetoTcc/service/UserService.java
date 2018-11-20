@@ -20,4 +20,6 @@ public interface UserService {
     User findByEmail(String email);
 
     Collection<User> findAll();
+    
+    Collection<User> findAllByRole(int role);
 }
