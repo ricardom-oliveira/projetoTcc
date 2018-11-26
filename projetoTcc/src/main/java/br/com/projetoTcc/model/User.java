@@ -3,6 +3,7 @@ package br.com.projetoTcc.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,14 +67,14 @@ public class User {
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Competence> competences;
+	@OneToMany(mappedBy = "user", targetEntity = Competence.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Collection<Competence> competences;
 	
-	@OneToMany(mappedBy = "userRequest", targetEntity = Match.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Match> matchsRequest;
+	@OneToMany(mappedBy = "userRequest", targetEntity = Match.class, cascade = CascadeType.ALL)  
+	private Collection<Match> matchsRequest;
 	
-	@OneToMany(mappedBy = "userReceiver", targetEntity = Match.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Match> matchsReceiver;
+	@OneToMany(mappedBy = "userReceiver", targetEntity = Match.class,  cascade = CascadeType.ALL)
+	private Collection<Match> matchsReceiver;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
@@ -191,18 +192,6 @@ public class User {
 		this.role = role;
 	}
 
-	public List<Competence> getCompetence() {
-		if (getCompetences() == null) {
-			setCompetences(new ArrayList<Competence>());
-		}
-		;
-
-		return getCompetences();
-	}
-
-	public void setCompetence(List<Competence> competence) {
-		this.setCompetences(competence);
-	}
 
 	public int getAge() {
 		LocalDate today = LocalDate.now(); // Today's date
@@ -221,38 +210,31 @@ public class User {
 		this.status = status;
 	}
 
-	public List<Competence> getCompetences() {
-		if (this.competences == null) {
-			setCompetences(new ArrayList<Competence>());
-		}
-		
-		return this.competences;
+	public Collection<Competence> getCompetences() {
+		return competences;
 	}
 
-	public void setCompetences(List<Competence> competences) {
+	public void setCompetences(Collection<Competence> competences) {
 		this.competences = competences;
 	}
 
-	public List<Match> getMatchsRequest() {
-		if (this.matchsRequest == null) {
-			setMatchsRequest(new ArrayList<Match>());
-		}
-		
-		return this.matchsRequest;
+	public Collection<Match> getMatchsRequest() {
+		return matchsRequest;
 	}
 
-	public void setMatchsRequest(List<Match> matchsRequest) {
+	public void setMatchsRequest(Collection<Match> matchsRequest) {
 		this.matchsRequest = matchsRequest;
 	}
 
-	public List<Match> getMatchsReceiver() {
+	public Collection<Match> getMatchsReceiver() {
 		return matchsReceiver;
 	}
 
-	public void setMatchsReceiver(List<Match> matchsReceiver) {
+	public void setMatchsReceiver(Collection<Match> matchsReceiver) {
 		this.matchsReceiver = matchsReceiver;
 	}
 
+	
 
 
 }

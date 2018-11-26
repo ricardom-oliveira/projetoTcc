@@ -14,16 +14,16 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 	Match findById(int id);
 
 	
-	List<Match> findByUserReceiver(User userReceiver);
+	List<Match> findByUserRequest(User user);
 	
-	@Query("from Match m where m.userRequest = :user")
-	List<Match> findByUserRequest(@Param("user") User user);
+	List<Match> findByUserReceiver(User user);
 	
 	List<Match> findByMatchStatus(String status);
 
 	List<Match> findByUserRequestAndMatchStatus(User userRequest, String status);
 	
 	List<Match> findByUserReceiverAndMatchStatus(User userReceiver, String status);
+
 
 	//
 	//List<Match> findMatchsByUserReceiver(@Param("id") int id, @Param("userReceiver") User userReceiver);

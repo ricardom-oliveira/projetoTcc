@@ -61,8 +61,8 @@ public class Competence {
 		this.description = description;
 	}
 
-	public String getCategorie() {
-		return categorie.getValue();
+	public Categories getCategorie() {
+		return this.categorie;
 	}
 
 	public void setCategorie(Categories categorie) {

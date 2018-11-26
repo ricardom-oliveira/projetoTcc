@@ -15,7 +15,41 @@
 	<br>
 	<br>
 	<br>
+		<div>
+			<div th:if="${msg eq 'successSave'}"
+				class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				<strong> Serviço salvo com sucesso </strong>
+			</div>
+			<div th:if="${msg eq 'successDelete'}"
+				class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				<strong> Serviço deletado com sucesso</strong>
+			</div>
+			<div th:if="${msg eq 'fail'}"
+				class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				<strong>Erro inesperado, tente de novo mais tarde!</strong>
+			</div>
+			<div th:if="${msg eq 'descriptionError'}"
+				class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				<strong>Descrição faltando </strong>
+			</div>
+			<div th:if="${msg eq 'categorieError'}"
+				class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				<strong>Categoria faltando</strong>
+			</div>
+
+		</div>
 	<div class="container emp-profile">
+
 		<div class="row">
 			<div class="col-md-4">
 				<div class="profile-img">
@@ -108,45 +142,7 @@
 					<div class="tab-pane fade" id="profile" role="tabpanel"
 						aria-labelledby="profile-tab">
 						<div class="row">
-							<div class="col-md-12">
-								<!--star operations messages-->
-								<div th:if="${msg eq 'successSave'}"
-									class="alert alert-success alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">&times;</button>
-									<strong> Serviço salvo com sucesso </strong>
-								</div>
-								<div th:if="${msg eq 'successDelete'}"
-									class="alert alert-success alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">&times;</button>
-									<strong> Serviço deletado com sucesso</strong>
-								</div>
-								<div th:if="${msg eq 'fail'}"
-									class="alert alert-danger alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">&times;</button>
-									<strong>Erro inesperado, tente de novo mais tarde!</strong>
-								</div>
-								<div th:if="${msg eq 'descriptionError'}"
-									class="alert alert-danger alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">&times;</button>
-									<strong>Descrição faltando </strong>
-								</div>
-								<div th:if="${msg eq 'categorieError'}"
-									class="alert alert-danger alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert"
-										aria-hidden="true">&times;</button>
-									<strong>Categoria faltando</strong>
-								</div>
-								<!--end of messages-->
-
-
-
-
-
-							</div>
+							<div class="col-md-12"></div>
 
 
 
@@ -205,72 +201,72 @@
 							</div>
 
 
-						<!--  Tabela de serviços -->
-						<h1 class="content-title">Meus serviços</h1>
-						<!-- Botão adiconar serviço modal -->
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#modalSaveCompetence">Adicionar Novo
-							Serviço</button>
-						<div class="panel panel-info">
+							<!--  Tabela de serviços -->
+							<h1 class="content-title">Meus serviços</h1>
+							<!-- Botão adiconar serviço modal -->
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#modalSaveCompetence">Adicionar Novo
+								Serviço</button>
+							<div class="panel panel-info">
 
-							<div class="panel-body">
-								<table
-									class="table table-bordered table-striped table-responsive">
-									<thead>
-										<tr class="btn-info">
-											<th>Descrição</th>
-											<th>Categoria</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="competence : ${allCompetences}">
-											<td th:text="${competence.description}"></td>
-											<td th:text="${competence.categorie}"></td>
-											<td th:hidden="${competence.id}"></td>
-											<td align="center">&nbsp; &nbsp; <a data-toggle="modal"
-												data-target="#modal-delete"
-												th:attr="data-target='#modal-delete'+${competence.id}">
-													<span class="glyphicon glyphicon-trash"
-													data-toggle="tooltip" data-placement="top"
-													title="Delete Permanently"> </span>
-											</a></td>
-											<!--modal para deletar serviços -->
-											<div class="modal modal-delete"
-												th:id="modal-delete+${competence.id}">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal"
-																aria-hidden="true">Ã—</button>
-															<h3 id="delModalLabel">Delete Confirmation</h3>
-														</div>
-														<div class="modal-body">
-															<p class="error-text">
-																<strong>Deseja remover este serviço?</strong>
-															</p>
-														</div>
-														<div class="modal-footer">
-															<button class="btn " data-dismiss="modal"
-																aria-hidden="true">Cancelar</button>
-															<a
-																th:href="@{/user/perfil/delete/{id}(id=${competence.id})}">
-																<span class="btn btn-danger" value="delete">Remover</span>
-															</a>
+								<div class="panel-body">
+									<table
+										class="table table-bordered table-striped table-responsive">
+										<thead>
+											<tr class="btn-info">
+												<th>Descrição</th>
+												<th>Categoria</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="competence : ${allCompetences}">
+												<td th:text="${competence.description}"></td>
+												<td th:text="${competence.categorie}"></td>
+												<td th:hidden="${competence.id}"></td>
+												<td align="center">&nbsp; &nbsp; <a data-toggle="modal"
+													data-target="#modal-delete"
+													th:attr="data-target='#modal-delete'+${competence.id}">
+														<span class="glyphicon glyphicon-trash"
+														data-toggle="tooltip" data-placement="top"
+														title="Delete Permanently"> </span>
+												</a></td>
+												<!--modal para deletar serviços -->
+												<div class="modal modal-delete"
+													th:id="modal-delete+${competence.id}">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-hidden="true">Ã—</button>
+																<h3 id="delModalLabel">Delete Confirmation</h3>
+															</div>
+															<div class="modal-body">
+																<p class="error-text">
+																	<strong>Deseja remover este serviço?</strong>
+																</p>
+															</div>
+															<div class="modal-footer">
+																<button class="btn " data-dismiss="modal"
+																	aria-hidden="true">Cancelar</button>
+																<a
+																	th:href="@{/user/perfil/delete/{id}(id=${competence.id})}">
+																	<span class="btn btn-danger" value="delete">Remover</span>
+																</a>
 
+															</div>
 														</div>
+														<!-- /.modal-content -->
 													</div>
-													<!-- /.modal-content -->
+													<!-- /.modal-dialog -->
 												</div>
-												<!-- /.modal-dialog -->
-											</div>
-											<!--end delete modal-->
-										</tr>
+												<!--end delete modal-->
+											</tr>
 
-									</tbody>
-								</table>
+										</tbody>
+									</table>
+								</div>
 							</div>
-						</div>
 
 						</div>
 					</div>

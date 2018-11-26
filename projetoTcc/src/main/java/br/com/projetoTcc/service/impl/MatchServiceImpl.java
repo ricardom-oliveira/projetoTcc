@@ -9,13 +9,18 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.projetoTcc.controller.GlobalController;
+import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.Match;
 import br.com.projetoTcc.model.User;
+import br.com.projetoTcc.model.enums.Categories;
 import br.com.projetoTcc.model.enums.MatchStatus;
 import br.com.projetoTcc.model.enums.Roles;
 import br.com.projetoTcc.repository.MatchRepository;
+import br.com.projetoTcc.service.CompetenceService;
 import br.com.projetoTcc.service.MatchService;
 import br.com.projetoTcc.service.UserService;
+import br.com.projetoTcc.utils.MatchFilter;
 
 @Service
 @Transactional
@@ -26,7 +31,13 @@ public class MatchServiceImpl implements MatchService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CompetenceService competenceService;
 
+	@Autowired
+	private GlobalController globalController;
+	
 	@Override
 	public Match findById(int id) {
 		return matchRepository.findById(id);
@@ -69,12 +80,8 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public Boolean delete(int id) {
-		if (matchRepository.existsById(id)) {
-			matchRepository.deleteById(id);
-			return true;
-		}
-		return false;
+	public void delete(Match match) {
+		matchRepository.delete(match);		
 	}
 
 	@Override
@@ -89,23 +96,23 @@ public class MatchServiceImpl implements MatchService {
 			boolean hasMatch = false;
 			if (!matchsUserLogin.isEmpty() || matchsUserLogin == null) {
 				for (Match match : matchsUserLogin) {
-					if(match.getMatchStatus().equals(MatchStatus.WAITING.getValue())) {
-						if (!hasMatch) {
-							if ((user.getId() == match.getUserReceiver().getId()) || (userLogin.getId() == user.getId())) {
-								hasMatch = true;
-							}
-						}
-					}else {
-						hasMatch = true;
+					if ((user.getId() == match.getUserReceiver().getId()) || (userLogin.getId() == user.getId())) {
+						if(match.getMatchStatus().equals(MatchStatus.WAITING.getValue()) || match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) {
+							hasMatch = true;
+						}	
 					}
 				}
-				if ((!hasMatch)) {
+				
+				if (!hasMatch) {
 					userOkToMatch.add(user);
+				}else {
+					if (!hasMatch && userLogin.getId() != user.getId())
+						userOkToMatch.add(user);					
 				}
-			} else {
-				if (userLogin.getId() != user.getId()) {
+				
+			}else {
+				if (userLogin.getId() != user.getId())
 					userOkToMatch.add(user);
-				}
 			}
 
 		}
@@ -127,5 +134,25 @@ public class MatchServiceImpl implements MatchService {
 		return null;
 
 	}
+
+	@Override
+	public Match setToAccepted(Match match) {
+		match.setMatchStatus(MatchStatus.ACCEPTED.getValue());
+		return save(match);
+	}
+	
+	@Override
+	public Match setToIgnored(Match match) {
+		match.setMatchStatus(MatchStatus.IGNORED.getValue());
+		return save(match);
+	}
+	
+	@Override
+	public Match setToWaiting(Match match) {
+		match.setMatchStatus(MatchStatus.WAITING.getValue());
+		return save(match);
+	}
+
+	
 
 }

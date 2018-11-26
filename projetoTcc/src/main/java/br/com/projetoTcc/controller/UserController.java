@@ -57,7 +57,6 @@ public class UserController {
 
     @RequestMapping("/all-users")
     public String home2 (Model model) {
-    	User user = new User();
     	model.addAttribute("allUsers", userService.findAll());
     	logger.info("all-users");
         return "all-users";
@@ -65,7 +64,11 @@ public class UserController {
 
     @RequestMapping("/home")
     public String home(Model model) {
-       
+    	User user = globalController.getLoginUser();
+    	
+    	int numberNewMatchs = userService.findNumberOfnewMatchs(user);    	
+    	model.addAttribute("numberNewMatchs", numberNewMatchs);
+    	
         logger.info("home");
         return "home";
     }
@@ -90,7 +93,12 @@ public class UserController {
     @RequestMapping("/edit-user")
     public String editUser(Model model) {
         logger.info("editUser");
+        
     	model.addAttribute("editUser", userService.findById((globalController.getLoginUser().getId())));
+    	
+    	int numberNewMatchs = userService.findNumberOfnewMatchs((globalController.getLoginUser()));    	
+    	model.addAttribute("numberNewMatchs", numberNewMatchs);
+    	
         return "edit-user";
     }
         

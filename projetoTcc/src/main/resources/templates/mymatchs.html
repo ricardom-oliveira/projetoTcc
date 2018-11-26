@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+
+<link rel="stylesheet" type="text/css" href="css/edit.css" />
+<title>Matchs</title>
+<div th:replace="fragments/header :: header-css"></div>
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="compose">
+			<div class="container col-md-12">
+				<div class="content-container clearfix col-md-12">
+				<div th:if="${msg eq 'acceptMsg'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Parabéns, você formou um match com: </strong>
+						<p th:text="${userMatch.name}"></p>
+				</div>
+				<div th:if="${msg eq 'cancelMatchMsg'}"
+						class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Que pena, você desfez o match com: </strong>
+						<p th:text="${userMatch.name}"></p>
+				</div>
+				<div th:if="${msg eq 'undoIgnoreMsg'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Ótimo, você deixou de ignorar o(a): </strong>
+						<p th:text="${userMatch.name}"></p>
+				</div>				
+				<div th:if="${msg eq 'ignoreOrderMsg'}"
+						class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Você cancelou o pedido de match com: </strong>
+						<p th:text="${userMatch.name}"></p>
+				</div>
+					<div class="navbar-collapse collapse" id="navbar-filter">
+						<div class="well col-md-2">
+							<form id="filterForm" th:object="${matchFilter}"
+								th:action="@{/mymatchs/filter}" method="post">
+								<div class="form-group form-inline">
+									<select th:field="*{matchStatus}" name="filter_type"
+										class="form-control">
+										<option value="all">Todos</option>
+										<option value="ACCEPTED">Aceitos</option>
+										<option value="WAITING">Aguardando Resposta</option>										
+										<option value="NEWS">Novos Matchs</option>										
+										<option value="IGNORED">Ignorados por você</option>
+									</select>
+								</div>
+
+								<button type="submit" id="btn-filter-pending"
+									class="btn btn-default">Filtrar</button>
+							</form>
+						</div>
+					</div>
+					<div th:if="${isEmpty}">
+						<blockquote class="blockquote text-center">
+							<h1>Você ainda não tem nenhum match :(</h1>
+						</blockquote>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4" th:each="match : ${matchUsersReceivers}">
+							<div class="well">
+								<div th:switch="${match.matchStatus}">
+									<div class="text-success text-center p-3 mb-2 bg-success" th:case="ACCEPTED">Match</div>
+									<div class="text-primary text-center p-3 mb-2 bg-primary" th:case="WAITING">Novo Match</div>
+									<div class="text-danger text-center p-3 mb-2 bg-danger" th:case="IGNORED">Usuário
+										Ignorado</div>
+								</div>
+								<div class="caption">
+									<h3 th:text="${match.userRequest.name}"></h3>
+									<p th:text="${match.userRequest.age}"></p>
+
+									<div th:if="${match.userRequest.competences != null}">
+										<h3 th:if="${!(match.userRequest.competences.isEmpty())}">Serviços</h3>
+										<div>
+											<ul class="list-group"  th:each="competence : ${match.userRequest.competences}">
+												<li class="list-group-item"
+													th:if="${competence.description != null}"
+													th:text="${competence.description}"></li>
+											</ul>
+										</div>
+									</div>
+
+
+									<div th:switch="${match.matchStatus}">
+										<div th:case="ACCEPTED">
+											<p>
+												<a
+													th:href="@{/mymatchs/cancel/{id}(id=${match.id})}">
+													<span class="btn btn-danger">Desfazer Match</span>
+												</a>
+											</p>
+										</div>
+										<div th:case="WAITING">
+											<p>
+												<a
+													th:href="@{/mymatchs/accept/{id}(id=${match.id})}">
+													<span class="btn btn-success">Aceitar Pedido de Match</span>
+												</a>
+											</p>
+										</div>
+										<div th:case="IGNORED">
+											<p>
+												<a
+													th:href="@{/mymatchs/undoignore/{id}(id=${match.id})}">
+													<span class="btn btn-success">Desfazer Ignore</span>
+												</a>
+											</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4" th:each="match : ${matchUsersRequests}">
+
+
+								<div class="well">
+								<div th:switch="${match.matchStatus}">
+									<div class="text-success text-center p-3 mb-2 bg-success" th:case="ACCEPTED">Match</div>
+									<div class="text-warning text-center p-3 mb-2 bg-warning" th:case="WAITING">Aguardando Resposta</div>
+									<div class="text-danger text-center p-3 mb-2 bg-danger" th:case="IGNORED">Usuário ignorado</div>
+								</div>
+									<h3 th:text="${match.userReceiver.name}"></h3>
+									<p th:text="${match.userReceiver.age}"></p>
+
+									<div th:if="${match.userReceiver.competences}">
+										<h3>Serviços</h3>
+										<div th:each="competence : ${match.userReceiver.competences}">
+											<ul class="list-group">
+												<li class="list-group-item"
+													th:if="${competence.description != null}"
+													th:text="${competence.description}"></li>
+											</ul>
+										</div>
+									</div>
+
+									<div th:switch="${match.matchStatus}">
+										<div th:case="ACCEPTED">
+											<p>
+												<a
+													th:href="@{/mymatchs/cancel/{id}(id=${match.id})}">
+													<span class="btn btn-danger">Desfazer Match</span>
+												</a>
+											</p>
+										</div>
+										<div th:case="WAITING">
+											<p>
+												<a
+													th:href="@{/mymatchs/ignore/{id}(id=${match.id})}">
+													<span class="btn btn-danger">Desfazer pedido de
+														Match</span>
+												</a>
+											</p>
+										</div>
+										<div th:case="IGNORED">
+											<p>
+												<a
+													th:href="@{/mymatchs/undoignore/{id}(id=${match.id})}">
+													<span class="btn btn-success">Desfazer o ignore</span>
+												</a>
+											</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="separator" th:replace="fragments/footer :: footer">&copy;</div>
+	</footer>
+
+	<script>
+
+</script>
+</body>
+</html>

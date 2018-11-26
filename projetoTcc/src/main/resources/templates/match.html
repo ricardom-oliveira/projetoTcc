@@ -16,12 +16,6 @@
 		<div class="tab-pane active" id="compose">
 			<div class="container col-md-12">
 				<div class="content-container clearfix">
-
-					<div th:if="${isEmpty}">
-						<blockquote class="blockquote text-center">
-							<h1>Você já olhou todos os usuários, volte mais tarde</h1>
-						</blockquote>
-					</div>
 					<div th:if="${msg eq 'acceptedMatch'}"
 						class="alert alert-success alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
@@ -58,20 +52,46 @@
 							pelo(a)</strong>
 						<p th:text="${userMatch.name}"></p>
 					</div>
+					<div class="navbar-collapse collapse" id="navbar-filter">
+						<div class="well col-md-2">
+							<form id="filterForm" th:object="${competenceFilter}"
+								th:action="@{/match/filter}" method="post">
+								<div class="form-group form-inline">
+									<select th:field="*{competenceCategorie}" name="filter_type"
+										class="form-control">
+										<option value="all">Todos</option>
+										<option	th:each="value : ${T(br.com.projetoTcc.model.enums.Categories).values()}"
+														th:value="${value}" th:text="${value}"></option>
+									</select>
+								</div>
+
+								<button type="submit" id="btn-filter-pending"
+									class="btn btn-default">Filtrar</button>
+							</form>
+						</div>
+					</div>
+					<div th:if="${isEmpty}">
+						<blockquote class="blockquote text-center">
+							<h1>Você já olhou todos os usuários, volte mais tarde</h1>
+						</blockquote>
+					</div>
 					<div class="row">
-						<div class="col-md-4" th:each="user : ${allUsers}">
+						<div class="col-md-4" th:each="user : ${userList}">
 							<div class="well">
 								<div class="caption">
 									<h3 th:text="${user.name}"></h3>
 									<p th:text="${user.age}"></p>
 
-									<div th:each="competence : ${user.competences}">
-
-										<h3 th:if="${competence.description != null}"
-											th:text="${competence.description}"></h3>
-										<p th:if="${competence.categorie != null}"
-											th:text="${competence.categorie}"></p>
-
+									<div th:if="${user.competences}">
+										<h3>Serviços</h3>
+										<div th:each="competence : ${user.competences}">
+											<ul class="list-group">
+												<li class="list-group-item"
+													th:if="${competence.description != null}"
+													th:text="${competence.description}">
+												</li>
+											</ul>	
+										</div>
 									</div>
 
 

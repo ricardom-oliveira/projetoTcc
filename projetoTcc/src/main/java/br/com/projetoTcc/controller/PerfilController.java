@@ -65,14 +65,14 @@ public class PerfilController {
 	           
 	                        
 	            boolean isNew = true;
-	            for (Competence competence : user.getCompetence()) {
+	            for (Competence competence : user.getCompetences()) {
 					if (competence.equals(newCompetence))
 						isNew = false;
 				}
 	            
 	            if (isNew) {
 	            	newCompetence.setUser(user);
-	            	user.getCompetence().add(newCompetence);
+	            	user.getCompetences().add(newCompetence);
 	            	
 	            	if (userService.save(user) == null) {
 	            		redirectAttributes.addFlashAttribute("msg", "fail");
