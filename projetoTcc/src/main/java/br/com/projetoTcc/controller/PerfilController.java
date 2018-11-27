@@ -101,11 +101,11 @@ public class PerfilController {
 	        logger.info("/user/perfil/delete/" + id);
 	        try {
 	        	User user = userService.findById(globalController.getLoginUser().getId());
-	            if (competenceService.delete(id)) {            	
-	            	redirectAttributes.addFlashAttribute("msg", "successDelete");
-	            	redirectAttributes.addFlashAttribute("userPerfil", user);
-	            	return "redirect:/perfil";
-	            }	         
+	        	Competence competence = competenceService.findById(id);
+	            competenceService.delete(competence);           	
+            	redirectAttributes.addFlashAttribute("msg", "successDelete");
+            	redirectAttributes.addFlashAttribute("userPerfil", user);
+            	return "redirect:/perfil";
 	            
 	          
 	        } catch (Exception e) {

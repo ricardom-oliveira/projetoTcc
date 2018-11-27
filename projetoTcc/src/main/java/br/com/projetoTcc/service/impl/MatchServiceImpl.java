@@ -88,19 +88,29 @@ public class MatchServiceImpl implements MatchService {
 	public Collection<User> findUsersOkToMatch(User userLogin) {
 
 		Collection<User> allUsers = userService.findAllByRole(Roles.ROLE_USER.getValue());
+		Collection<User> userOkToMatch = new ArrayList<User>();
+	
+		userOkToMatch.addAll(findUsersOk(userLogin, allUsers));
+		return userOkToMatch;
 
-		List<Match> matchsUserLogin = findByUserRequest(userLogin);
+	}
+	
+	private Collection<User> findUsersOk(User userLogin, Collection<User> allUsers) {
+		List<Match> matchsUserLoginRequest = findByUserRequest(userLogin);
+		List<Match> matchsUserLoginReceiver = findByUserReceiver(userLogin);
 
 		Collection<User> userOkToMatch = new ArrayList<User>();
 		for (User user : allUsers) {
 			boolean hasMatch = false;
-			if (!matchsUserLogin.isEmpty() || matchsUserLogin == null) {
-				for (Match match : matchsUserLogin) {
-					if ((user.getId() == match.getUserReceiver().getId()) || (userLogin.getId() == user.getId())) {
-						if(match.getMatchStatus().equals(MatchStatus.WAITING.getValue()) || match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) {
-							hasMatch = true;
-						}	
-					}
+			if ((!matchsUserLoginRequest.isEmpty() && matchsUserLoginRequest != null) || (!matchsUserLoginReceiver.isEmpty() && matchsUserLoginReceiver != null)) {
+				for (Match match : matchsUserLoginRequest) {
+					if ((user.getId() == match.getUserReceiver().getId()) || (userLogin.getId() == user.getId())) 
+							hasMatch = true;	
+				}
+				
+				for (Match match : matchsUserLoginReceiver) {
+					if ((user.getId() == match.getUserRequest().getId()) || (userLogin.getId() == user.getId())) 
+							hasMatch = true;	
 				}
 				
 				if (!hasMatch) {
@@ -117,7 +127,6 @@ public class MatchServiceImpl implements MatchService {
 
 		}
 		return userOkToMatch;
-
 	}
 
 	@Override

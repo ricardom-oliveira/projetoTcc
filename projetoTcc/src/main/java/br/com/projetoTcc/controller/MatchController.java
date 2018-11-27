@@ -105,27 +105,27 @@ public class MatchController {
 
 					match = matchService.setToAccepted(match);
 
-					model.addAttribute("msg", "acceptedMatch");
-					model.addAttribute("userMatch", userMatch);
+					redirectAttributes.addFlashAttribute("msg", "acceptedMatch");
+					redirectAttributes.addFlashAttribute("userMatch", userMatch);
 
 					CompetenceFilter competenceFilter = new CompetenceFilter();
 					competenceFilter.setCompetenceCategorie("all");
 
 					Collection<User> userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-					model.addAttribute("userList", userList);
+					redirectAttributes.addFlashAttribute("userList", userList);
 
-					model.addAttribute("competenceFilter", competenceFilter);
+					redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 					int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-					model.addAttribute("numberNewMatchs", numberNewMatchs);
+					redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 					if (userList.isEmpty())
-						model.addAttribute("isEmpty", true);
+						redirectAttributes.addFlashAttribute("isEmpty", true);
 					else
-						model.addAttribute("userList", userList);
+						redirectAttributes.addFlashAttribute("userList", userList);
 
-					return "/match";
+					return "redirect:/match";
 				}
 
 				if (match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) {
@@ -137,19 +137,19 @@ public class MatchController {
 
 					Collection<User> userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-					model.addAttribute("userList", userList);
+					redirectAttributes.addFlashAttribute("userList", userList);
 
-					model.addAttribute("competenceFilter", competenceFilter);
+					redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 					int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-					model.addAttribute("numberNewMatchs", numberNewMatchs);
+					redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 					if (userList.isEmpty())
-						model.addAttribute("isEmpty", true);
+						redirectAttributes.addFlashAttribute("isEmpty", true);
 					else
-						model.addAttribute("userList", userList);
+						redirectAttributes.addFlashAttribute("userList", userList);
 
-					return "/match";
+					return "redirect:/match";
 				}
 
 			}
@@ -165,19 +165,19 @@ public class MatchController {
 
 				Collection<User> userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-				model.addAttribute("userList", userList);
+				redirectAttributes.addFlashAttribute("userList", userList);
 
-				model.addAttribute("competenceFilter", competenceFilter);
+				redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-				model.addAttribute("numberNewMatchs", numberNewMatchs);
+				redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (userList.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else
-					model.addAttribute("userList", userList);
+					redirectAttributes.addFlashAttribute("userList", userList);
 
-				return "/match";
+				return "redirect:/match";
 			}
 
 		} catch (Exception e) {
@@ -209,19 +209,19 @@ public class MatchController {
 
 					userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-					model.addAttribute("userList", userList);
+					redirectAttributes.addFlashAttribute("userList", userList);
 
-					model.addAttribute("competenceFilter", competenceFilter);
+					redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 					int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-					model.addAttribute("numberNewMatchs", numberNewMatchs);
+					redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 					if (userList.isEmpty())
-						model.addAttribute("isEmpty", true);
+						redirectAttributes.addFlashAttribute("isEmpty", true);
 					else
-						model.addAttribute("userList", userList);
+						redirectAttributes.addFlashAttribute("userList", userList);
 
-					return "/match";
+					return "redirect:/match";
 
 				} else {
 					if (match.getMatchStatus().equals(MatchStatus.IGNORED.getValue())) {
@@ -234,19 +234,19 @@ public class MatchController {
 
 						userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-						model.addAttribute("userList", userList);
+						redirectAttributes.addFlashAttribute("userList", userList);
 
-						model.addAttribute("competenceFilter", competenceFilter);
+						redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 						int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-						model.addAttribute("numberNewMatchs", numberNewMatchs);
+						redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 						if (userList.isEmpty())
-							model.addAttribute("isEmpty", true);
+							redirectAttributes.addFlashAttribute("isEmpty", true);
 						else
-							model.addAttribute("userList", userList);
+							redirectAttributes.addFlashAttribute("userList", userList);
 
-						return "/match";
+						return "redirect:/match";
 					}
 
 				}
@@ -256,27 +256,27 @@ public class MatchController {
 			Match newMatch = new Match(user, userMatch);
 			if (matchService.save(newMatch) != null) {
 				newMatch = matchService.setToIgnored(newMatch);
-				model.addAttribute("msg", "ignoredMatch");
-				model.addAttribute("userMatch", userMatch);
+				redirectAttributes.addFlashAttribute("msg", "ignoredMatch");
+				redirectAttributes.addFlashAttribute("userMatch", userMatch);
 
 				CompetenceFilter competenceFilter = new CompetenceFilter();
 				competenceFilter.setCompetenceCategorie("all");
 
 				userList = userService.filterUsersByCompetence(competenceFilter, user);
 
-				model.addAttribute("userList", userList);
+				redirectAttributes.addFlashAttribute("userList", userList);
 
-				model.addAttribute("competenceFilter", competenceFilter);
+				redirectAttributes.addFlashAttribute("competenceFilter", competenceFilter);
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-				model.addAttribute("numberNewMatchs", numberNewMatchs);
+				redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (userList.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else
-					model.addAttribute("userList", userList);
+					redirectAttributes.addFlashAttribute("userList", userList);
 
-				return "/match";
+				return "redirect:/match";
 			}
 
 		} catch (Exception e) {
@@ -287,9 +287,44 @@ public class MatchController {
 		return "/home";
 
 	}
+	
+	@RequestMapping(value = { "/match/filter" }, method = RequestMethod.POST)
+	public String filterUserToMatch(@ModelAttribute("matchFilter") CompetenceFilter competenceFilter, Model model,
+			final RedirectAttributes redirectAttributes) {
+		logger.info("/match/filter" + competenceFilter);
+		try {
+			
+			User user = userService.findById(globalController.getLoginUser().getId());
+
+			Collection<User> userList = userService.filterUsersByCompetence(competenceFilter, user);
+
+			model.addAttribute("userList", userList);
+
+			model.addAttribute("competenceFilter", competenceFilter);
+
+			int numberNewMatchs = userService.findNumberOfnewMatchs(user);
+			model.addAttribute("numberNewMatchs", numberNewMatchs);
+
+			if (userList.isEmpty())
+				model.addAttribute("isEmpty", true);
+			else
+				model.addAttribute("userList", userList);
+
+			logger.info("match");
+			return "match";
+
+		} catch (Exception e) {
+			model.addAttribute("msg", "fail");
+			logger.error("filterMatch: " + e.getMessage());
+		}
+
+		return "match";
+
+	}
+	
 
 	@RequestMapping(value = { "/mymatchs/filter" }, method = RequestMethod.POST)
-	public String filterMatch(@ModelAttribute("matchFilter") MatchFilter matchFilter, Model model,
+	public String filterMyMatchs(@ModelAttribute("matchFilter") MatchFilter matchFilter, Model model,
 			final RedirectAttributes redirectAttributes) {
 		logger.info("/match/filter" + matchFilter);
 		try {
@@ -371,27 +406,27 @@ public class MatchController {
 			if (match != null) {
 				matchService.delete(match);
 
-				model.addAttribute("msg", "cancelMsg");
-				model.addAttribute("userMatch", match.getUserRequest());
+				redirectAttributes.addFlashAttribute("msg", "cancelMsg");
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserRequest());
 				MatchFilter matchFilter = new MatchFilter();
 				matchFilter.setMatchStatus("all");
 
 				Collection<Match> matchUsersReceivers = userService.filterMatchsReceivers(matchFilter, user);
 				Collection<Match> matchUsersRequests = userService.filterMatchsRequests(matchFilter, user);
 
-				model.addAttribute("matchFilter", matchFilter);
-				model.addAttribute("userMatch", match.getUserRequest());
+				redirectAttributes.addFlashAttribute("matchFilter", matchFilter);
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserRequest());
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
 				redirectAttributes.addAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (matchUsersReceivers.isEmpty() && matchUsersRequests.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else {
-					model.addAttribute("matchUsersReceivers", matchUsersReceivers);
-					model.addAttribute("matchUsersRequests", matchUsersRequests);
+					redirectAttributes.addFlashAttribute("matchUsersReceivers", matchUsersReceivers);
+					redirectAttributes.addFlashAttribute("matchUsersRequests", matchUsersRequests);
 				}
-				return "/mymatchs";
+				return "redirect:/mymatchs";
 			}
 
 		} catch (Exception e) {
@@ -413,29 +448,29 @@ public class MatchController {
 
 			if (match != null) {
 				matchService.delete(match);
-				model.addAttribute("msg", "undoIgnoreMsg");
-				model.addAttribute("userMatch", match.getUserRequest());
+				redirectAttributes.addFlashAttribute("msg", "undoIgnoreMsg");
 				MatchFilter matchFilter = new MatchFilter();
 				matchFilter.setMatchStatus("all");
 
 				Collection<Match> matchUsersReceivers = userService.filterMatchsReceivers(matchFilter, user);
 				Collection<Match> matchUsersRequests = userService.filterMatchsRequests(matchFilter, user);
 
-				model.addAttribute("matchFilter", matchFilter);
-				model.addAttribute("userMatch", match.getUserRequest());
+				redirectAttributes.addFlashAttribute("matchFilter", matchFilter);
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserRequest());
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-				model.addAttribute("numberNewMatchs", numberNewMatchs);
+				redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (matchUsersReceivers.isEmpty() && matchUsersRequests.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else {
-					model.addAttribute("matchUsersReceivers", matchUsersReceivers);
-					model.addAttribute("matchUsersRequests", matchUsersRequests);
+					redirectAttributes.addFlashAttribute("matchUsersReceivers", matchUsersReceivers);
+					redirectAttributes.addFlashAttribute("matchUsersRequests", matchUsersRequests);
 				}
-				model.addAttribute("msg", "error");
-				return "/mymatchs";
+				return "redirect:/mymatchs";
 			}
+			redirectAttributes.addFlashAttribute("msg", "error");
+			return "redirect:/mymatchs";
 
 		} catch (Exception e) {
 			model.addAttribute("msg", "fail");

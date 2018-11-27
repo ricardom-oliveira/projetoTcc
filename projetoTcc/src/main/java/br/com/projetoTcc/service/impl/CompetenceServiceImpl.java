@@ -25,15 +25,6 @@ public class CompetenceServiceImpl implements CompetenceService {
 	}
 
 	@Override
-    public Boolean delete(int id) {
-        if (competenceRepository.existsById(id)) {
-        	competenceRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-	@Override
 	public Competence update(Competence competence) {
 		return null;
 	}
@@ -49,13 +40,18 @@ public class CompetenceServiceImpl implements CompetenceService {
 	}
 
 	@Override
-	public List<Competence> findByCategorie(Categories categorie) {
+	public List<Competence> findByCategorie(String categorie) {
 		return competenceRepository.findByCategorie(categorie);
 	}
 
 	@Override
 	public List<Competence> findByUser(User user) {
 		return competenceRepository.findByUser(user);
+	}
+
+	@Override
+	public void delete(Competence competence) {
+		competenceRepository.delete(competence);
 	}
 
 

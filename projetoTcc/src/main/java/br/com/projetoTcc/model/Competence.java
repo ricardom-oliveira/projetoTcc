@@ -27,9 +27,8 @@ public class Competence {
 	@Column(name = "description", nullable = true)
 	private String description;
 
-	@Enumerated(EnumType.STRING)
 	@Column(name = "categorie", nullable = true)
-	private Categories categorie;
+	private String categorie;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -60,14 +59,7 @@ public class Competence {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Categories getCategorie() {
-		return this.categorie;
-	}
-
-	public void setCategorie(Categories categorie) {
-		this.categorie = categorie;
-	} 
+ 
 	    
 	@Override
     public boolean equals(Object o) {
@@ -77,12 +69,20 @@ public class Competence {
         	return id == competence.id &&
                 user == competence.user &&
                 		  Objects.equals(description, competence.description) &&
-                		  Objects.equals(categorie, competence.categorie); 
+                		  Objects.equals(getCategorie(), competence.getCategorie()); 
 
       }
 
 	    @Override
 	    public int hashCode() {
-	        return Objects.hash(id, description, categorie, user);
+	        return Objects.hash(id, description, getCategorie(), user);
 	    }
+
+		public String getCategorie() {
+			return categorie;
+		}
+
+		public void setCategorie(String categorie) {
+			this.categorie = categorie;
+		}
 }

@@ -11,11 +11,10 @@ import br.com.projetoTcc.model.enums.Categories;
 public interface CompetenceRepository extends CrudRepository<Competence, Integer> {
 
     
-    List<Competence> findByCategorie(Categories categorie);
+    List<Competence> findByCategorie(String categorie);
     
    
     List<Competence> findByUser(User userId);
-
 
 
 

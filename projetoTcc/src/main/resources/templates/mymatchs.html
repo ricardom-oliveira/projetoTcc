@@ -45,7 +45,7 @@
 						<p th:text="${userMatch.name}"></p>
 				</div>
 					<div class="navbar-collapse collapse" id="navbar-filter">
-						<div class="well col-md-2">
+						<div class="col-md-2 well">
 							<form id="filterForm" th:object="${matchFilter}"
 								th:action="@{/mymatchs/filter}" method="post">
 								<div class="form-group form-inline">

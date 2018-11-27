@@ -4,22 +4,20 @@ import java.util.List;
 
 import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.User;
-import br.com.projetoTcc.model.enums.Categories;
 
 public interface CompetenceService {
 
 	Competence save(Competence competence);
 
-    Boolean delete(int id);
-
+	void delete(Competence competence);
+	
     Competence update(Competence competence);
 
     Competence findById(int id);
 
     List<Competence> findAll();
 
-
-    List<Competence> findByCategorie(Categories categorie);
+    List<Competence> findByCategorie(String categorie);
 
     List<Competence> findByUser(User user);
 

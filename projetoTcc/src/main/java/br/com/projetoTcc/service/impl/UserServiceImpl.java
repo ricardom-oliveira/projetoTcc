@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
 				for (Competence competenceUser : competencesUser) {
 					boolean hasCategorie = false;
 					for (Competence competence : competenceList) {
-						if (competenceUser.getCategorie().getValue().equals(competence.getCategorie().getValue()) && !hasCategorie){
+						if (competenceUser.getCategorie().equals(competence.getCategorie()) && !hasCategorie){
 							hasCategorie = true;
 						}
 					}
@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
 		
 		if (!competenceCategorie.equals("all")) {
 			for (Competence competence : allCompetences) {
-				if(competence.getCategorie().getValue().equals(competenceCategorie)) {
+				if(competence.getCategorie().equals(competenceCategorie)) {
 					competenceList.add(competence);
 				}
 			}
