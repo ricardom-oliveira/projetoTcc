@@ -46,7 +46,7 @@
 						<p th:text="${userMatch.name}"></p>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar-filter">
-						<div class="well col-md-2">
+						<div class="well col-md-2"  id="comboBox">
 							<form id="filterForm" th:object="${competenceFilter}"
 								th:action="@{/match/filter}" method="post">
 								<div class="form-group form-inline">
@@ -73,8 +73,12 @@
 						<div class="col-md-4" th:each="user : ${userList}">
 							<div class="well">
 								<div class="caption">
-									<h3 th:text="${user.name}"></h3>
-									<p th:text="${user.age}"></p>
+									<div class="page-header">
+										<h2 th:inline="text"> [[${user.name}]],
+											 <small th:text="${user.age}"></small>
+										</h2>
+										<span th:text="${user.address.city}"></span>
+									</div>
 
 									<div th:if="${user.competences}">
 										<h3>Serviços</h3>

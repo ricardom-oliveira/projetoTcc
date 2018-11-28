@@ -26,6 +26,8 @@ public class Address {
 	@Column(name = "city")
 	private String city;
 	
+	@Column(name = "country")
+	private String country;
 	
 
 	public int getId() {
@@ -74,6 +76,14 @@ public class Address {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	

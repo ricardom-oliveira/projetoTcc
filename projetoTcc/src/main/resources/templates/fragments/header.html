@@ -64,7 +64,7 @@
 		        </div>
 		        <div id="navbar" class="collapse navbar-collapse">
 		            <ul class="nav navbar-nav">
-		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/perfil">Meu Perfil (teste)</a></li>
+		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/perfil">Meu Perfil</a></li>
 		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/match">Solicitar Novos Serviços</a></li>		                
 		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/mymatchs">Meus Matchs <span class="badge" th:if = "${numberNewMatchs}" th:text="${numberNewMatchs}" ></span></a></li>
 		            </ul>

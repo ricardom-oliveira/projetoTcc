@@ -149,7 +149,10 @@ public class UserController {
             		 User userEmailVerification = userService.findByEmail(editUser.getEmail());
             		 if (userEmailVerification != null) {
             	            redirectAttributes.addFlashAttribute("saveUser", "exist-email");
-            	            return "redirect:/register";
+            	    		int numberNewMatchs = userService.findNumberOfnewMatchs(user);
+            	    		model.addAttribute("numberNewMatchs", numberNewMatchs);
+            	            return "redirect:/edit-user";
+            	            
             	     }
             	}
             	
@@ -160,9 +163,10 @@ public class UserController {
             	
             	editUser.setRole(user.getRole());
             	
+            	model.addAttribute("numberNewMatchs", null);
             	
             	if (userService.update(editUser) != null) {
-            		redirectAttributes.addFlashAttribute("msg", "sucess");
+            		redirectAttributes.addFlashAttribute("msg", "success");
             	} else {
                     redirectAttributes.addFlashAttribute("msg", "fail");
                 }

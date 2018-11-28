@@ -11,205 +11,140 @@
 </head>
 <body>
 	<div th:replace="fragments/header :: header"></div>
-	<br>
-	<br>
-	<br>
-	<br>
-		<div>
-			<div th:if="${msg eq 'successSave'}"
-				class="alert alert-success alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				<strong> Serviço salvo com sucesso </strong>
-			</div>
-			<div th:if="${msg eq 'successDelete'}"
-				class="alert alert-success alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				<strong> Serviço deletado com sucesso</strong>
-			</div>
-			<div th:if="${msg eq 'fail'}"
-				class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				<strong>Erro inesperado, tente de novo mais tarde!</strong>
-			</div>
-			<div th:if="${msg eq 'descriptionError'}"
-				class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				<strong>Descrição faltando </strong>
-			</div>
-			<div th:if="${msg eq 'categorieError'}"
-				class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				<strong>Categoria faltando</strong>
-			</div>
-
-		</div>
-	<div class="container emp-profile">
-
-		<div class="row">
-			<div class="col-md-4">
-				<div class="profile-img">
-					<img
-						src="https://pbs.twimg.com/profile_images/920025201563316224/cdrEd2QN_400x400.jpg"
-						alt="" />
-					<div class="file btn btn-lg btn-primary">
-						Change Photo <input type="file" name="file" />
+	<div class="tab-content">
+		<div class="tab-pane active">
+			<div class="container">
+				<div class="content-container clearfix">
+					<div th:if="${msg eq 'successSave'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Serviço salvo com sucesso </strong>
 					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="profile-head">
-					<h5 th:text="${user.name} + ','"></h5>
-					<h5 th:text="${age}"></h5>
-					<p class="proile-rating">
-						Nota : <span>8/10</span>
-					</p>
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item"><a class="nav-link active" id="home-tab"
-							data-toggle="tab" href="#home" role="tab" aria-controls="home"
-							aria-selected="true">Meus Dados</a></li>
-						<li class="nav-item"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">Serviços</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<a class="btn btn-primary profile-edit-btn" href="/edit-user"
-					name="btnAddMore">Editar Perfil</a>
+					<div th:if="${msg eq 'successDelete'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong> Serviço deletado com sucesso</strong>
+					</div>
+					<div th:if="${msg eq 'fail'}"
+						class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Erro inesperado, tente de novo mais tarde!</strong>
+					</div>
+					<div th:if="${msg eq 'descriptionError'}"
+						class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Descrição faltando </strong>
+					</div>
+					<div th:if="${msg eq 'categorieError'}"
+						class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong>Categoria faltando</strong>
+					</div>
 
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="profile-work">
-					<p>REDES SOCIAIS</p>
-					<a href="">Instagram</a><br /> <a href="">Facebook</a><br /> <a
-						href="">Twitter</a><br /> <a href="">Linkedin</a>
-					<p>SERVIÇOS</p>
-					<a href="">Web Designer</a><br /> <a href="">Web Developer</a><br />
-					<a href="">WordPress</a><br /> <a href="">WooCommerce</a><br /> <a
-						href="">PHP, .Net</a><br />
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="tab-content profile-tab" id="myTabContent">
-					<div class="tab-pane fade show active" id="home" role="tabpanel"
-						aria-labelledby="home-tab">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Username</label>
-							</div>
-							<div class="col-md-6">
-								<p th:text="${user.username}"></p>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="profile-img">
+								<img th:src="${user.srcPerfilImage}"
+									alt="" />
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Nome</label>
-							</div>
-							<div class="col-md-6">
-								<p th:text="${user.name}"></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Email</label>
-							</div>
-							<div class="col-md-6">
-								<p th:text="${user.email}"></p>
+						<div class="col-md-6">
+							<div class="profile-head">
+								<h5 th:text="${user.name} + ','"></h5>
+								<h5 th:text="${age}"></h5>
+
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										id="home-tab" data-toggle="tab" href="#home" role="tab"
+										aria-controls="home" aria-selected="true">Meus Dados</a></li>
+								</ul>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Idade</label>
-							</div>
-							<div class="col-md-6">
-								<p th:text="${user.birthDate}"></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Sua Descrição</label><br />
-								<p>Your detail description</p>
-							</div>
+						<div class="col-md-2">
+							<a class="btn btn-primary profile-edit-btn" href="/edit-user"
+								name="btnAddMore">Editar Perfil</a>
+
 						</div>
 					</div>
-					<div class="tab-pane fade" id="profile" role="tabpanel"
-						aria-labelledby="profile-tab">
-						<div class="row">
-							<div class="col-md-12"></div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="profile-work">
+								<p>REDES SOCIAIS</p>
+								<a href="">Instagram</a><br /> <a href="">Facebook</a><br /> <a
+									href="">Twitter</a><br /> <a href="">Linkedin</a>
+								<p>SERVIÇOS</p>
+								<a href="">Web Designer</a><br /> <a href="">Web Developer</a><br />
+								<a href="">WordPress</a><br /> <a href="">WooCommerce</a><br />
+								<a href="">PHP, .Net</a><br />
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="tab-content profile-tab well" id="myTabContent">
 
-
-
-							<!-- Modal para salvar serviços -->
-							<div class="modal fade" id="modalSaveCompetence" tabindex="-1"
-								role="dialog" aria-labelledby="modalSaveCompetenceTitle"
-								aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLongTitle">Adicionar
-												Serviço</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form th:object="${newCompetence}"
-												th:action="@{/user/perfil/save}" method="post">
-												<div class="col-md-12">
-													<div class="form-group">
-														<input id="competenceDescription"
-															th:field="*{description}" type="text"
-															class="form-control" required="required"
-															placeholder="Descrição" />
-													</div>
-
-													<div class="form-group ">
-														<div class="input-group">
-															<div class="input-group-addon">
-																<i class="fa fa-user"></i>
-															</div>
-															<select th:field="*{categorie}"
-																class="select form-control" id="select" name="select">
-																<option value="null">Categoria</option>
-																<option
-																	th:each="value : ${T(br.com.projetoTcc.model.enums.Categories).values()}"
-																	th:value="${value}" th:text="${value}">
-														</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<br />
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<input class="btn btn-primary" type="submit" value="Submit">
-												</div>
-											</form>
-										</div>
-
+								<div class="row">
+									<div class="col-md-6">
+										<label>Nome de Usuário</label>
+									</div>
+									<div class="col-md-6">
+										<p th:text="${user.username}"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label>Nome</label>
+									</div>
+									<div class="col-md-6">
+										<p th:text="${user.name}"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label>Email</label>
+									</div>
+									<div class="col-md-6">
+										<p th:text="${user.email}"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label>Telefone Celular</label>
+									</div>
+									<div class="col-md-6">
+										<p th:text="${user.phoneNumber}"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label>Data de nascimento</label>
+									</div>
+									<div class="col-md-6">
+										<p th:text="${user.birthDate}"></p>
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="profile-head">
 
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										id="home-tab" data-toggle="tab" href="#home" role="tab"
+										aria-controls="home" aria-selected="true">Meus Serviços</a></li>
+								</ul>
+							</div>
 
-							<!--  Tabela de serviços -->
-							<h1 class="content-title">Meus serviços</h1>
-							<!-- Botão adiconar serviço modal -->
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#modalSaveCompetence">Adicionar Novo
-								Serviço</button>
-							<div class="panel panel-info">
+							<div class="row">
 
-								<div class="panel-body">
+								<!-- Botão adiconar serviço modal -->
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#modalSaveCompetence">Adicionar
+									Novo Serviço</button>
 									<table
 										class="table table-bordered table-striped table-responsive">
 										<thead>
@@ -267,7 +202,58 @@
 									</table>
 								</div>
 							</div>
+							<!-- Modal para salvar serviços -->
+							<div class="modal fade" id="modalSaveCompetence" tabindex="-1"
+								role="dialog" aria-labelledby="modalSaveCompetenceTitle"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Adicionar
+												Serviço</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form th:object="${newCompetence}"
+												th:action="@{/user/perfil/save}" method="post">
+												<div class="col-md-12">
+													<div class="form-group">
+														<input id="competenceDescription"
+															th:field="*{description}" type="text"
+															class="form-control" required="required"
+															placeholder="Descrição" />
+													</div>
 
+													<div class="form-group ">
+														<div class="input-group">
+															<div class="input-group-addon">
+																<i class="fa fa-user"></i>
+															</div>
+															<select th:field="*{categorie}"
+																class="select form-control" id="select" name="select">
+																<option value="null">Categoria</option>
+																<option
+																	th:each="value : ${T(br.com.projetoTcc.model.enums.Categories).values()}"
+																	th:value="${value}" th:text="${value}"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<br />
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Fechar</button>
+													<input class="btn btn-primary" type="submit" value="Confirmar">
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

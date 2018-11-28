@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="UTF-8">
 <title>Edit</title>
 <link rel="stylesheet" type="text/css" href="css/global.css" />
 
@@ -8,7 +9,7 @@
 <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
-	<div th:replace="fragments/header :: header" ></div>
+	<div th:replace="fragments/header :: header"></div>
 
 	<div class="tab-content">
 		<div class="tab-pane active" id="compose">
@@ -26,27 +27,27 @@
 						class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						<strong>Atenção </strong> Nenhum campo mudou :(
+						<strong>AtenÃ§Ã£o </strong> Nenhum campo mudou :(
 					</div>
 					<div th:if="${msg eq 'exist-email'}"
 						class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						<strong>Atenção </strong> Email ja existente :(
+						<strong>AtenÃ§Ã£o </strong> Email ja existente :(
 					</div>
 					<div th:if="${msg eq 'fail'}"
 						class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						<strong>Falhou </strong> Não foi possível atualizar seu cadastro
+						<strong>Falhou </strong> NÃ£o foi possÃ­vel atualizar seu cadastro
 					</div>
 
 					<form th:object="${editUser}" th:action="@{/user/editUser}"
 						method="post" class="form-horizontal">
 						<input type="hidden" th:field="*{id}" th:value="*{id}" /> <input
 							type="hidden" th:field="*{username}" th:value="*{username}" /> <input
-							type="hidden" th:field="*{role}" th:value="*{role}" />
-							 <label type="hidden" th:field="*{gender}" th:value="*{gender}" /> <label
+							type="hidden" th:field="*{role}" th:value="*{role}" /> <label
+							type="hidden" th:field="*{gender}" th:value="*{gender}" /> <label
 							class="control-label " for="select"> Dados Pessoais </label>
 
 						<div class="form-group ">
@@ -57,6 +58,18 @@
 								<input th:field="*{name}" type="text" name="register_name"
 									class="form-control" placeholder="nome" required="required"
 									value="" />
+							</div>
+						</div>
+						
+						<label class="control-label " for="select"> Numero de
+							Celular</label>
+						<div class="form-group ">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-earphone"></i>
+								</div>
+								<input th:field="*{phoneNumber}" type="text"
+									class="form-control item" placeholder="(--) ----- ----">
 							</div>
 						</div>
 
@@ -81,10 +94,11 @@
 									<i class="glyphicon glyphicon-home"></i>
 								</div>
 								<input th:field="*{address.street}" type="text"
-									name="register_username" class="form-control" placeholder="Rua"
-									required="required" /> <input th:field="*{address.number}"
+								class="form-control" placeholder="Rua"
+									required="required" />
+									 <input th:field="*{address.number}"
 									type="text" name="register_username" class="form-control"
-									placeholder="Número" required="required" />
+									placeholder="NÃºmero" required="required" />
 							</div>
 						</div>
 						<div class="form-group ">
@@ -114,8 +128,8 @@
 								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-home"></i>
 								</div>
-								<input th:field="*{address.street}" type="text"
-									name="register_email" class="form-control" placeholder="País"
+								<input th:field="*{address.country}" type="text"
+									name="register_email" class="form-control" placeholder="PaÃ­s"
 									required="required" value="" />
 							</div>
 						</div>
@@ -133,8 +147,16 @@
 									class="form-control" placeholder="Email" required="required" />
 							</div>
 						</div>
-
-
+						
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-picture"></i>
+								</div>
+								<input th:field="*{srcPerfilImage}" class="form-control" type="text"
+									placeholder="Cole aqui o link da sua foto de perfil">
+							</div>
+						</div>
 						<input type="submit" value="Editar Cadastro"
 							class="btn btn-success btn-custom" />
 
@@ -142,15 +164,16 @@
 
 
 
-					<a data-toggle="modal" class="btn btn-danger navbar-right"	data-target="#modal-delete"	th:attr="data-target='#modal-delete'+${editUser.id}">excluir											
-											</a>
+					<a data-toggle="modal" class="btn btn-danger navbar-right"
+						data-target="#modal-delete"
+						th:attr="data-target='#modal-delete'+${editUser.id}">excluir </a>
 
 					<div class="modal modal-delete" th:id="modal-delete+${editUser.id}">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">Ã—</button>
+										aria-hidden="true">Ãƒâ€”</button>
 									<h3 id="delModalLabel">Excluir Minha Conta</h3>
 								</div>
 								<div class="modal-body">
@@ -203,8 +226,8 @@
 	    password.onchange = validatePassword;
 	    confirm_password.onkeyup = validatePassword;
 	</script>
-	
-		<script>
+
+	<script>
 	    $('#modal-toTrash').on('show.bs.modal', function (e) {
 	        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 	        $('#modal-toTrashHiddenId').val($(this).find('.btn-ok').attr('href'));

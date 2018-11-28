@@ -81,6 +81,11 @@ public class User {
 	private Status status;
 	
 	
+	@Column(name = "phone", length = 30)
+	private String phoneNumber;
+	
+	@Column(name = "src_perfil_image")
+	private String srcPerfilImage;
 
 	public User() {
 	}
@@ -232,6 +237,22 @@ public class User {
 
 	public void setMatchsReceiver(Collection<Match> matchsReceiver) {
 		this.matchsReceiver = matchsReceiver;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getSrcPerfilImage() {
+		return srcPerfilImage;
+	}
+
+	public void setSrcPerfilImage(String srcPerfilImage) {
+		this.srcPerfilImage = srcPerfilImage;
 	}
 
 	
