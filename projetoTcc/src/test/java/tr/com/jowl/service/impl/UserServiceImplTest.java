@@ -17,13 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/**
- * The UserServiceImpl Test class
- *
- * @author ibrahim KARAYEL
- * @version 1.0
- * Date 4/27/2018.
- */
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class UserServiceImplTest {

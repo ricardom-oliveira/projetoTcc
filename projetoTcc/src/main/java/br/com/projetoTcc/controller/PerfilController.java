@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.projetoTcc.model.Competence;
 import br.com.projetoTcc.model.User;
 import br.com.projetoTcc.service.CompetenceService;
-import br.com.projetoTcc.service.TaskService;
 import br.com.projetoTcc.service.UserService;
 
 @Controller
@@ -24,26 +23,12 @@ public class PerfilController {
 
 	    @Autowired
 	    GlobalController globalController;
-
-	    @Autowired
-	    TaskService taskService;
-
 	    @Autowired
 	    UserService userService;
 	    
 	    @Autowired
 		CompetenceService competenceService;
-	    
-	    @RequestMapping("/perfil2")
-	    public String perfil(Model model) {
-	    	User user = userService.findById((globalController.getLoginUser().getId()));
-	        model.addAttribute("user", user);
-	        model.addAttribute("allCompetences", competenceService.findByUser(user));
-	        model.addAttribute("newCompetence", new Competence());
-	        logger.info("perfil2");
-	        return "perfil2";
-	    }
-	    
+
 	    @RequestMapping(value = {"/user/perfil/save"}, method = RequestMethod.POST)
 	    public String saveCompetence (@ModelAttribute("userPerfil") Competence newCompetence,    		
 	    										Model model,
@@ -118,7 +103,7 @@ public class PerfilController {
 	    
 	    
 	    @RequestMapping("/perfil")
-	    public String perfil2(Model model) {
+	    public String perfil(Model model) {
 	    	User user = userService.findById((globalController.getLoginUser().getId()));
 	        model.addAttribute("user", user);
 	        model.addAttribute("age", user.getAge());

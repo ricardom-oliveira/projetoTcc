@@ -18,9 +18,7 @@ import br.com.projetoTcc.model.enums.MatchStatus;
 import br.com.projetoTcc.model.enums.Roles;
 import br.com.projetoTcc.model.enums.Status;
 import br.com.projetoTcc.service.MatchService;
-import br.com.projetoTcc.service.TaskService;
 import br.com.projetoTcc.service.UserService;
-import br.com.projetoTcc.utils.MatchFilter;
 
 @Controller
 public class AdminController {
@@ -29,9 +27,6 @@ public class AdminController {
 
 	@Autowired
 	GlobalController globalController;
-
-	@Autowired
-	TaskService taskService;
 
 	@Autowired
 	UserService userService;

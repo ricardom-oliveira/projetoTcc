@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.projetoTcc.model.Competence;
-import br.com.projetoTcc.model.Task;
 import br.com.projetoTcc.model.User;
 import br.com.projetoTcc.model.enums.Roles;
 import br.com.projetoTcc.model.enums.Status;
 import br.com.projetoTcc.service.CompetenceService;
-import br.com.projetoTcc.service.TaskService;
 import br.com.projetoTcc.service.UserService;
 import br.com.projetoTcc.utils.PassEncoding;
 
@@ -29,9 +26,6 @@ public class UserController {
 
     @Autowired
     GlobalController globalController;
-
-    @Autowired
-    TaskService taskService;
 
     @Autowired
     UserService userService;
@@ -66,15 +60,6 @@ public class UserController {
         return "home";
     }
     
-    @RequestMapping("/task")
-    public String task(Model model) {
-        Task task =new Task();
-        model.addAttribute("reqTask", task);
-        model.addAttribute("allTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.ACTIVE.getValue()));
-        model.addAttribute("allPassiveTask", taskService.findByUserIdStatus(globalController.getLoginUser().getId(), Status.PASSIVE.getValue()));
-        logger.info("task");
-        return "task";
-    }
     
     @RequestMapping("/register")
     public String register(Model model) {

@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
-    <meta charset="utf-8">
-    <meta name="description" content="spring-boot thymeleaf | home ">
-	<link rel="stylesheet" type="text/css" href="css/global.css" />
-    
-    <div th:replace="fragments/header :: header-css"></div>
+<title>Home</title>
+<meta charset="utf-8">
+<meta name="description" content="spring-boot thymeleaf | home ">
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+
+<div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="tab-content">
+		<div class="tab-pane active" id="compose">
+			<div class="container col-md-12">
+				<div class="content-container clearfix col-md-12"></div>
+			</div>
+		</div>
+	</div>
 
 
 
-<footer>
-    <div class="separator" th:replace="fragments/footer :: footer">&copy;</div>
-</footer>
+	<footer>
+		<div class="separator" th:replace="fragments/footer :: footer">&copy;</div>
+	</footer>
 </body>
 </html>
