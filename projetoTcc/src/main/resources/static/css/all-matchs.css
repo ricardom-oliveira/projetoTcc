@@ -1,0 +1,11 @@
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+
+.userRequest{
+ background: -webkit-linear-gradient(left, #90EE90, #90EE90);
+}
+
+.userReceiver{
+ background: -webkit-linear-gradient(left, #90EE90, #90EE90);
+}

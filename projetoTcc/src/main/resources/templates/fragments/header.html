@@ -67,6 +67,8 @@
 		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/perfil">Meu Perfil</a></li>
 		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/match">Solicitar Novos Serviços</a></li>		                
 		                <li sec:authorize="hasRole('ROLE_USER')"><a href="/mymatchs">Meus Matchs <span class="badge" th:if = "${numberNewMatchs}" th:text="${numberNewMatchs}" ></span></a></li>
+		            	<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/all-users">Todos os usuários</a></li>
+		            	<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/all-matchs">Todos os matchs</a></li>
 		            </ul>
 		            
 		            <form action="/logout" method="post" class="navbar-form navbar-right">

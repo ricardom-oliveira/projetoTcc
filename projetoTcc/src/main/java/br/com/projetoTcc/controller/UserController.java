@@ -55,13 +55,6 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping("/all-users")
-    public String home2 (Model model) {
-    	model.addAttribute("allUsers", userService.findAll());
-    	logger.info("all-users");
-        return "all-users";
-    }
-
     @RequestMapping("/home")
     public String home(Model model) {
     	User user = globalController.getLoginUser();
@@ -189,58 +182,7 @@ public class UserController {
  
 
 
-    @RequestMapping("/admin")
-    public String helloAdmin(Model model) {
-
-    	model.addAttribute("allUsers", userService.findAll());
-        logger.info("admin");
-        return "admin";
-    }
-    
-    @RequestMapping(value = {"/admin/delete/{id}"},  method = RequestMethod.GET)
-    public String deleteUserByAdmin (@PathVariable("id") int id,    		
-    													Model model,
-    													final RedirectAttributes redirectAttributes) {
-        logger.info("/admin/delete/{id}" + id);
-        try {
-            if (userService.delete(id)) {            	
-            	redirectAttributes.addFlashAttribute("msg", "successDelete");
-            	redirectAttributes.addFlashAttribute("allUsers", userService.findAll());
-            	return "redirect:/admin";
-            }	         
-            
-          
-        } catch (Exception e) {
-            model.addAttribute("msg", "fail");
-            logger.error("deleteUserByAdmin: " + e.getMessage());
-        }
-        return "admin";
-    }
-    
-
-    @RequestMapping(value = {"/admin/banishment/{id}"},  method = RequestMethod.GET)
-    public String banishmentUserByAdmin (@PathVariable("id") int id,    		
-    													Model model,
-    													final RedirectAttributes redirectAttributes) {
-        logger.info("/admin/delete/{id}" + id);
-        try {
-        	
-        	User user = userService.findById(id);
-        	
-        	user.setStatus(Status.PASSIVE);
-        	
-	    	redirectAttributes.addFlashAttribute("msg", "successBanishment");
-	    	redirectAttributes.addFlashAttribute("allUsers", userService.findAll());
-	    	return "redirect:/admin";
-            	         
-            
-          
-        } catch (Exception e) {
-            model.addAttribute("msg", "fail");
-            logger.error("deleteUserByAdmin: " + e.getMessage());
-        }
-        return "admin";
-    }
+   
     
     @RequestMapping(value = {"/user/delete/{id}"},  method = RequestMethod.GET)
     public String deleteUser (@PathVariable("id") int id,    		

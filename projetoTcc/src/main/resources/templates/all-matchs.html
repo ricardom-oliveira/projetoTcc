@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+<link rel="stylesheet" type="text/css" href="css/all-matchs.css" />
+
+<link rel="stylesheet" type="text/css" href="css/edit.css" />
+<title>Matchs</title>
+<div th:replace="fragments/header :: header-css"></div>
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="compose">
+			<div class="container col-md-12">
+				<div class="content-container clearfix col-md-12">
+				<h1 class='text-center'> Todos os Matchs</h1>
+				<br>
+					<div th:if="${msg eq 'acceptMsg'}"
+						class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<strong th:inline="text"> Match entre [[${userMatchRequest.name}]] e [[${userMatchReceiver.name}]] desfeito com sucesso</strong>
+						<p th:text="${userMatch.name}"></p>
+					</div>
+
+					<div th:if="${isEmpty}">
+						<blockquote class="blockquote text-center">
+							<h1>Nenhum match encontrado</h1>
+						</blockquote>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4" th:each="match : ${allMatchs}">
+							<div class="well">
+
+								<div class="text-success text-center p-3 mb-2 bg-success">
+									Visão de Administrador</div>
+
+								<div class="caption">
+										<h2>Usuário Solicitante</h2>
+									<div class="well userRequest">
+										<div class="page-header">
+											<h2 th:inline="text">
+												[[${match.userRequest.name}]], <small
+													th:text="${match.userRequest.age}"></small>
+											</h2>
+											<span th:text="${match.userRequest.address.city}"></span>
+										</div>
+
+										<div th:if="${match.userRequest.competences != null}">
+											<h3 th:if="${!(match.userRequest.competences.isEmpty())}">Serviços</h3>
+											<div>
+												<ul class="list-group"
+													th:each="competence : ${match.userRequest.competences}">
+													<li class="list-group-item"
+														th:if="${competence.description != null}"
+														th:text="${competence.description}"></li>
+												</ul>
+											</div>
+										</div>
+
+										<h3>Meios de contato:</h3>
+										<div class="well">
+
+											<p>
+												<span class="glyphicon glyphicon-envelope"></span> <span
+													th:text="${match.userRequest.email}"></span>
+											</p>
+
+											<p>
+												<span class="glyphicon glyphicon-earphone"></span> <span
+													th:text="${match.userRequest.phoneNumber}"></span>
+											</p>
+
+
+										</div>
+									</div>
+										<h2>Usuário Solicitado</h2>
+									<div class="well userReceiver">
+									<div class="page-header">
+										<h2 th:inline="text">
+											[[${match.userReceiver.name}]], <small
+												th:text="${match.userReceiver.age}"></small>
+										</h2>
+										<span th:text="${match.userReceiver.address.city}"></span>
+									</div>
+
+									<div th:if="${match.userReceiver.competences}">
+										<h3>Serviços</h3>
+										<div th:each="competence : ${match.userReceiver.competences}">
+											<ul class="list-group">
+												<li class="list-group-item"
+													th:if="${competence.description != null}"
+													th:text="${competence.description}"></li>
+											</ul>
+										</div>
+									</div>
+									<h3>Formas de contato</h3>
+									<div class="well">
+										<p>
+											<span class="glyphicon glyphicon-envelope"></span> <span
+												th:text="${match.userReceiver.email}"></span>
+										</p>
+										<p>
+											<span class="glyphicon glyphicon-earphone"></span> <span
+												th:text="${match.userRequest.phoneNumber}"></span>
+										</p>
+									</div>
+
+									</div>
+								</div>
+
+								<p>
+									<a th:href="@{/admin/cancel/{id}(id=${match.id})}"> <span
+										class="btn btn-warning">Desfazer Match</span>
+									</a>
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+	</div>
+	</div>
+	</div>
+
+	<footer>
+		<div class="separator" th:replace="fragments/footer :: footer">&copy;</div>
+	</footer>
+
+	<script>
+
+</script>
+</body>
+</html>
