@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/global.css" />
 
 <link rel="stylesheet" type="text/css" href="css/edit.css" />
-<title>Matchs</title>
+<title>Meus Matchs</title>
 <div th:replace="fragments/header :: header-css"></div>
 
 </head>
@@ -102,7 +102,7 @@
 										</div>
 									</div>
 
-										<h3>Meios de contato:</h3>
+										<h3 th:if="${match.matchStatus eq 'ACCEPTED'}">Meios de contato:</h3>
 									<div class='well' th:if="${match.matchStatus eq 'ACCEPTED'}">
 
 										<p>
@@ -178,7 +178,7 @@
 								</div>
 
 								<div th:if="${match.matchStatus eq 'ACCEPTED'}">
-									<h3>Formas de contato</h3>
+									<h3>Meios de contato</h3>
 									<div class="well">
 										<p>
 											<span class="glyphicon glyphicon-envelope"></span> <span

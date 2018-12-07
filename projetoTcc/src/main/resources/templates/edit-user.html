@@ -44,11 +44,13 @@
 
 					<form th:object="${editUser}" th:action="@{/user/editUser}"
 						method="post" class="form-horizontal">
-						<input type="hidden" th:field="*{id}" th:value="*{id}" /> <input
-							type="hidden" th:field="*{username}" th:value="*{username}" /> <input
-							type="hidden" th:field="*{role}" th:value="*{role}" /> <label
-							type="hidden" th:field="*{gender}" th:value="*{gender}" /> <label
-							class="control-label " for="select"> Dados Pessoais </label>
+						<input type="hidden" th:field="*{id}" th:value="*{id}" />
+						<input type="hidden" th:field="*{username}" th:value="*{username}" />
+						<input type="hidden" th:field="*{role}" th:value="*{role}" />
+						<label type="hidden" th:field="*{gender}" th:value="*{gender}" /> 
+						<input type="hidden" th:field="*{status}" th:value="*{status}" />
+						
+						<label class="control-label " for="select"> Dados Pessoais </label>
 
 						<div class="form-group ">
 							<div class="input-group">

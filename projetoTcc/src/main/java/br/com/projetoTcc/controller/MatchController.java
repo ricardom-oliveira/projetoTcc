@@ -364,7 +364,7 @@ public class MatchController {
 			if (match != null) {
 
 				match = matchService.setToAccepted(match);
-				model.addAttribute("msg", "acceptMsg");
+				redirectAttributes.addFlashAttribute("msg", "acceptMsg");
 				redirectAttributes.addFlashAttribute("userMatch", match.getUserRequest());
 				MatchFilter matchFilter = new MatchFilter();
 				matchFilter.setMatchStatus("all");
@@ -372,19 +372,19 @@ public class MatchController {
 				Collection<Match> matchUsersReceivers = userService.filterMatchsReceivers(matchFilter, user);
 				Collection<Match> matchUsersRequests = userService.filterMatchsRequests(matchFilter, user);
 
-				model.addAttribute("matchFilter", matchFilter);
-				model.addAttribute("userMatch", match.getUserRequest());
+				redirectAttributes.addFlashAttribute("matchFilter", matchFilter);
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserRequest());
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-				model.addAttribute("numberNewMatchs", numberNewMatchs);
+				redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (matchUsersReceivers.isEmpty() && matchUsersRequests.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else {
-					model.addAttribute("matchUsersReceivers", matchUsersReceivers);
-					model.addAttribute("matchUsersRequests", matchUsersRequests);
+					redirectAttributes.addFlashAttribute("matchUsersReceivers", matchUsersReceivers);
+					redirectAttributes.addFlashAttribute("matchUsersRequests", matchUsersRequests);
 				}
-				return "/mymatchs";
+				return "redirect:/mymatchs";
 			}
 
 		} catch (Exception e) {
@@ -492,27 +492,27 @@ public class MatchController {
 			if (match != null) {
 				matchService.delete(match);
 
-				model.addAttribute("msg", "ignoreOrderMsg");
-				model.addAttribute("userMatch", match.getUserReceiver());
+				redirectAttributes.addFlashAttribute("msg", "ignoreOrderMsg");
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserReceiver());
 				MatchFilter matchFilter = new MatchFilter();
 				matchFilter.setMatchStatus("all");
 
 				Collection<Match> matchUsersReceivers = userService.filterMatchsReceivers(matchFilter, user);
 				Collection<Match> matchUsersRequests = userService.filterMatchsRequests(matchFilter, user);
 
-				model.addAttribute("matchFilter", matchFilter);
-				model.addAttribute("userMatch", match.getUserReceiver());
+				redirectAttributes.addFlashAttribute("matchFilter", matchFilter);
+				redirectAttributes.addFlashAttribute("userMatch", match.getUserReceiver());
 
 				int numberNewMatchs = userService.findNumberOfnewMatchs(user);
-				redirectAttributes.addAttribute("numberNewMatchs", numberNewMatchs);
+				redirectAttributes.addFlashAttribute("numberNewMatchs", numberNewMatchs);
 
 				if (matchUsersReceivers.isEmpty() && matchUsersRequests.isEmpty())
-					model.addAttribute("isEmpty", true);
+					redirectAttributes.addFlashAttribute("isEmpty", true);
 				else {
-					model.addAttribute("matchUsersReceivers", matchUsersReceivers);
-					model.addAttribute("matchUsersRequests", matchUsersRequests);
+					redirectAttributes.addFlashAttribute("matchUsersReceivers", matchUsersReceivers);
+					redirectAttributes.addFlashAttribute("matchUsersRequests", matchUsersRequests);
 				}
-				return "/mymatchs";
+				return "redirect:/mymatchs";
 			}
 
 		} catch (Exception e) {

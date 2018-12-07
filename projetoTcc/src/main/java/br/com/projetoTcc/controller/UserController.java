@@ -51,7 +51,7 @@ public class UserController {
 
     @RequestMapping("/home")
     public String home(Model model) {
-    	User user = globalController.getLoginUser();
+    	User user = userService.findById(globalController.getLoginUser().getId());
     	
     	int numberNewMatchs = userService.findNumberOfnewMatchs(user);    	
     	model.addAttribute("numberNewMatchs", numberNewMatchs);
